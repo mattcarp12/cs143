@@ -1,0 +1,20 @@
+
+_program
+
+  _class
+    A
+    Object
+    filename
+    (
+
+    _method
+      f
+      Object
+
+      _cond
+
+        _bool
+          1
+        : _no_type
+./myparser: line 2: 384516 Done                    ../lexer $*
+     384517 Segmentation fault      (core dumped) | ../parser $*

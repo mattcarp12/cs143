@@ -1,0 +1,21 @@
+#1
+_program
+  #1
+  _class
+    A
+    Object
+    "./badexprlist.test"
+    (
+    #2
+    _method
+      f
+      Int
+      #2
+      _block
+      : _no_type
+    #3
+    _method
+      f
+      Int
+./myparser: line 2: 383889 Done                    ../lexer $*
+     383890 Segmentation fault      (core dumped) | ../parser $*

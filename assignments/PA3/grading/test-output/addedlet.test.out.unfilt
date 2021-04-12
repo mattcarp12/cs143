@@ -1,0 +1,14 @@
+#1
+_program
+  #1
+  _class
+    Foo
+    Object
+    "./addedlet.test"
+    (
+    #2
+    _method
+      bar
+      Int
+./myparser: line 2: 383589 Done                    ../lexer $*
+     383590 Segmentation fault      (core dumped) | ../parser $*

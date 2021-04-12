@@ -1,0 +1,18 @@
+#1
+_program
+  #1
+  _class
+    A
+    Object
+    "./nestedlet.test"
+    (
+    #2
+    _method
+      f
+      #2
+      _formal
+        x
+        Int
+      Object
+./myparser: line 2: 384821 Done                    ../lexer $*
+     384822 Segmentation fault      (core dumped) | ../parser $*

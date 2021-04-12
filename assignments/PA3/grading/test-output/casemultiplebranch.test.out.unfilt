@@ -1,0 +1,33 @@
+#1
+_program
+  #1
+  _class
+    Test
+    Object
+    "./casemultiplebranch.test"
+    (
+    #2
+    _attr
+      foo
+      Test
+      #2
+      _no_expr
+      : _no_type
+    #3
+    _method
+      bar
+      Int
+      #3
+      _typcase
+        #3
+        _dispatch
+          #3
+          _object
+            foo
+          : _no_type
+          bar
+          (
+          )
+        : _no_type
+./myparser: line 2: 383956 Done                    ../lexer $*
+     383957 Segmentation fault      (core dumped) | ../parser $*

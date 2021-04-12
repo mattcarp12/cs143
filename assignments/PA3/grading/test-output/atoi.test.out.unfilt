@@ -1,0 +1,5 @@
+"./atoi.test", line 26: syntax error at or near INT_CONST = 0
+"./atoi.test", line 44: syntax error at or near STR_CONST =  ""
+"./atoi.test", line 76: syntax error at or near OBJECTID = i
+"./atoi.test", line 81: syntax error at or near OBJECTID = int
+Compilation halted due to lex and parse errors

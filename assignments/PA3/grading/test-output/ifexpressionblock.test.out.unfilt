@@ -1,0 +1,2 @@
+"./ifexpressionblock.test", line 3: syntax error at or near INT_CONST = 2
+Compilation halted due to lex and parse errors

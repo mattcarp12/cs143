@@ -1,0 +1,20 @@
+#1
+_program
+  #1
+  _class
+    A
+    Object
+    "./ifnothenbranch.test"
+    (
+    #2
+    _method
+      f
+      Object
+      #3
+      _cond
+        #3
+        _bool
+          1
+        : _no_type
+./myparser: line 2: 384516 Done                    ../lexer $*
+     384517 Segmentation fault      (core dumped) | ../parser $*

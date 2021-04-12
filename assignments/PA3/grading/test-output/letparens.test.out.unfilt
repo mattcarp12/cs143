@@ -1,0 +1,3 @@
+"./letparens.test", line 3: syntax error at or near '('
+"./letparens.test", line 4: syntax error at or near LET
+Compilation halted due to lex and parse errors

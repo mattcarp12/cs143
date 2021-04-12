@@ -1,0 +1,24 @@
+17,36c17,18
+< 
+<       _let
+<         a
+<         Int
+< 
+<         _no_expr
+<         : _no_type
+< 
+<         _plus
+< 
+<           _int
+<             6
+<           : _no_type
+< 
+<           _int
+<             7
+<           : _no_type
+<         : _no_type
+<       : _no_type
+<     )
+---
+> ./myparser: line 2: 384557 Done                    ../lexer $*
+>      384558 Segmentation fault      (core dumped) | ../parser $*

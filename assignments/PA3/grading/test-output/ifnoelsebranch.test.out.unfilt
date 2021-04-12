@@ -1,0 +1,28 @@
+#1
+_program
+  #1
+  _class
+    B
+    Object
+    "./ifnoelsebranch.test"
+    (
+    #2
+    _method
+      g
+      #2
+      _formal
+        x
+        Int
+      Bool
+      #3
+      _cond
+        #3
+        _bool
+          0
+        : _no_type
+        #3
+        _int
+          5
+        : _no_type
+./myparser: line 2: 384475 Done                    ../lexer $*
+     384476 Segmentation fault      (core dumped) | ../parser $*

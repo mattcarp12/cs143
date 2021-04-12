@@ -1,0 +1,12 @@
+"./arithprecedence.test", line 4: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 6: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 7: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 9: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 10: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 12: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 13: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 15: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 16: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 18: syntax error at or near OBJECTID = a
+"./arithprecedence.test", line 19: syntax error at or near OBJECTID = a
+Compilation halted due to lex and parse errors

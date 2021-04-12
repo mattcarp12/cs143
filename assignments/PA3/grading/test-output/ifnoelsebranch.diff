@@ -1,0 +1,32 @@
+1,2c1,28
+< filename, line 3: syntax error at or near LOCATION
+< Compilation halted due to lex and syntax errors
+---
+> 
+> _program
+> 
+>   _class
+>     B
+>     Object
+>     filename
+>     (
+> 
+>     _method
+>       g
+> 
+>       _formal
+>         x
+>         Int
+>       Bool
+> 
+>       _cond
+> 
+>         _bool
+>           0
+>         : _no_type
+> 
+>         _int
+>           5
+>         : _no_type
+> ./myparser: line 2: 384475 Done                    ../lexer $*
+>      384476 Segmentation fault      (core dumped) | ../parser $*
