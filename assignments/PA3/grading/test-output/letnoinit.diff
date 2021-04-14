@@ -13,5 +13,5 @@
 <       : _no_type
 <     )
 ---
-> ./myparser: line 2: 384626 Done                    ../lexer $*
->      384627 Segmentation fault      (core dumped) | ../parser $*
+> ./myparser: line 2: 163911 Done                    ../lexer $*
+>      163912 Segmentation fault      (core dumped) | ../parser $*

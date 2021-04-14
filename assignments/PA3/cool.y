@@ -133,8 +133,8 @@
     %type <program> program
     %type <classes> class_list
     %type <class_> class
-    %type <features> feature_list
-    %type <feature> feature
+    %type <features> feature_list 
+    %type <feature> feature 
     %type <formals> formal_list
     %type <formal> formal
     %type <cases> case_list
@@ -148,20 +148,18 @@
     %type <features> let_attr_list
     
     /* Precedence declarations go here. */
-    %left '+' 
-    %left '-' 
-    %left '*' 
-    %left '/' 
+    %left '+' '-'  
+    %left '*' '/' 
     %left '~' 
     %left '<' 
     %left DARROW 
     %left '=' 
     %left NOT 
     %left '('
-    // OBJECTID
-    // INT_CONST
-    // STR_CONST
-    // BOOL_CONST
+    OBJECTID
+    INT_CONST
+    STR_CONST
+    BOOL_CONST
     
     
     %%
@@ -186,9 +184,7 @@
     stringtable.add_string(curr_filename)); }
     | CLASS TYPEID INHERITS TYPEID '{' feature_list '}' ';'
     { $$ = class_($2,$4,$6,stringtable.add_string(curr_filename)); }
-    | CLASS TYPEID '{' error '}' ';'
-    {}
-    | CLASS TYPEID INHERITS TYPEID '{' error '}' ';'
+    | error ';'
     {}
     ;
     
@@ -199,8 +195,6 @@
     { $$ = single_Features($1); }
     | feature_list feature /* several features */
     { $$ = append_Features($1, single_Features($2)); }
-    | error
-    {}
     ;
 
     feature: 
@@ -210,6 +204,8 @@
     { $$ = attr($1,$3,no_expr()); }
     | OBJECTID ':' TYPEID ASSIGN expression ';'
     { $$ = attr($1,$3,$5); }
+    | error ';'
+    {}
     ;
 
     /* Let attribute list may not be empty */
@@ -225,7 +221,7 @@
     { $$ = attr($1,$3,no_expr()); }
     | OBJECTID ':' TYPEID ASSIGN expression
     { $$ = attr($1,$3,$5); }
-    | OBJECTID ':' TYPEID ASSIGN error
+    | error IN
     {}
     ;
 
@@ -237,7 +233,9 @@
     { $$ = append_Formals($1, single_Formals($3)); }
     ;
 
-    formal: OBJECTID ':' TYPEID   { $$ = formal($1, $3); }
+    formal: 
+    OBJECTID ':' TYPEID   
+    { $$ = formal($1, $3); }
     ;
 
     case_list:
@@ -258,16 +256,15 @@
     { $$ = single_Expressions($1); }
     | expression_list_comma ',' expression
     { $$ = append_Expressions($1, single_Expressions($3)); }
-    | error
-    {}
     ;
 
     expression_list_semi:
-    { $$ = nil_Expressions();}
-    | expression ';'
+    expression ';'
     { $$ = single_Expressions($1); }
-    | expression_list_comma expression ';'
+    | expression_list_semi expression ';'
     { $$ = append_Expressions($1, single_Expressions($2)); }
+    | error ';'
+    {}
     ;
 
     expression: 
@@ -322,8 +319,6 @@
     { $$ = string_const($1); }
     | BOOL_CONST                    /* boolean constant */
     { $$ = bool_const($1); }
-    | error
-    {}
     ;
 
 

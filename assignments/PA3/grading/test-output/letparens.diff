@@ -1,16 +1,4 @@
-1,73c1,3
-< 
-< _program
-< 
-<   _class
-<     Foo
-<     Object
-<     filename
-<     (
-< 
-<     _method
-<       bar
-<       Int
+13,73c13,14
 < 
 <       _block
 < 
@@ -73,6 +61,5 @@
 <       : _no_type
 <     )
 ---
-> filename, line 3: syntax error at or near LOCATION
-> filename, line 4: syntax error at or near LOCATION
-> Compilation halted due to lex and syntax errors
+> ./myparser: line 2: 163934 Done                    ../lexer $*
+>      163935 Segmentation fault      (core dumped) | ../parser $*

@@ -14,5 +14,5 @@ _program
         a
         Int
       Int
-./myparser: line 2: 384557 Done                    ../lexer $*
-     384558 Segmentation fault      (core dumped) | ../parser $*
+./myparser: line 2: 163840 Done                    ../lexer $*
+     163841 Segmentation fault      (core dumped) | ../parser $*

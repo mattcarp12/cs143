@@ -24,5 +24,5 @@ _program
         _int
           5
         : _no_type
-./myparser: line 2: 384475 Done                    ../lexer $*
-     384476 Segmentation fault      (core dumped) | ../parser $*
+./myparser: line 2: 163758 Done                    ../lexer $*
+     163759 Segmentation fault      (core dumped) | ../parser $*

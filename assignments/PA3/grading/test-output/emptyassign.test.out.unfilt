@@ -1,2 +1,30 @@
-"./emptyassign.test", line 5: syntax error at or near INT_CONST = 5
-Compilation halted due to lex and parse errors
+#1
+_program
+  #1
+  _class
+    A
+    Object
+    "./emptyassign.test"
+    (
+    #2
+    _attr
+      x
+      Int
+      #2
+      _no_expr
+      : _no_type
+    #3
+    _method
+      f
+      #3
+      _formal
+        x
+        Int
+      Object
+      #3
+      _block
+        #4
+        _assign
+          x
+./myparser: line 2: 163517 Done                    ../lexer $*
+     163518 Segmentation fault      (core dumped) | ../parser $*

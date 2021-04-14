@@ -16,5 +16,5 @@ _program
         _bool
           1
         : _no_type
-./myparser: line 2: 384516 Done                    ../lexer $*
-     384517 Segmentation fault      (core dumped) | ../parser $*
+./myparser: line 2: 163799 Done                    ../lexer $*
+     163800 Segmentation fault      (core dumped) | ../parser $*

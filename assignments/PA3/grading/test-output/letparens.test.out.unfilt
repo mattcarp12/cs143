@@ -1,3 +1,14 @@
-"./letparens.test", line 3: syntax error at or near '('
-"./letparens.test", line 4: syntax error at or near LET
-Compilation halted due to lex and parse errors
+#1
+_program
+  #1
+  _class
+    Foo
+    Object
+    "./letparens.test"
+    (
+    #2
+    _method
+      bar
+      Int
+./myparser: line 2: 163934 Done                    ../lexer $*
+     163935 Segmentation fault      (core dumped) | ../parser $*

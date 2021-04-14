@@ -1,7 +1,14 @@
-"./complex.test", line 19: syntax error at or near OBJECTID = y
-"./complex.test", line 20: syntax error at or near OBJECTID = self
-"./complex.test", line 34: syntax error at or near OBJECTID = y
-"./complex.test", line 35: syntax error at or near OBJECTID = self
-"./complex.test", line 42: syntax error at or near OBJECTID = self
-"./complex.test", line 49: syntax error at or near OBJECTID = self
-Compilation halted due to lex and parse errors
+#1
+_program
+  #1
+  _class
+    Main
+    IO
+    "./complex.test"
+    (
+    #2
+    _method
+      main
+      SELF_TYPE
+./myparser: line 2: 163440 Done                    ../lexer $*
+     163441 Segmentation fault      (core dumped) | ../parser $*

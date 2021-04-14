@@ -1,70 +1,20 @@
-1,65c1,3
-< 
-< _program
-< 
-<   _class
-<     Foo
-<     Object
-<     filename
-<     (
-< 
-<     _method
-<       bar
-<       Int
-< 
-<       _block
-< 
+16,17d15
 <         _plus
 < 
-<           _isvoid
-< 
-<             _object
-<               a
-<             : _no_type
+19a18,19
+>           _plus
+> 
+23d22
 <           : _no_type
-< 
-<           _mul
-< 
-<             _object
-<               b
-<             : _no_type
-< 
-<             _object
-<               c
-<             : _no_type
-<           : _no_type
-<         : _no_type
+36,37c35
 < 
 <         _comp
-< 
-<           _lt
-< 
-<             _object
-<               a
-<             : _no_type
-< 
-<             _object
-<               b
-<             : _no_type
-<           : _no_type
-<         : _no_type
-< 
-<         _plus
-< 
-<           _neg
-< 
-<             _object
-<               a
-<             : _no_type
-<           : _no_type
-< 
-<           _object
-<             b
-<           : _no_type
-<         : _no_type
-<       : _no_type
-<     )
 ---
-> filename, line 3: syntax error at or near LOCATION
-> filename, line 4: syntax error at or near LOCATION
-> Compilation halted due to lex and syntax errors
+>         : _no_type
+40a39,40
+>           _comp
+> 
+43a44
+>           : _no_type
+47d47
+<             : _no_type

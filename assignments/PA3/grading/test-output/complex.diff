@@ -1,16 +1,4 @@
-1,323c1,7
-< 
-< _program
-< 
-<   _class
-<     Main
-<     IO
-<     filename
-<     (
-< 
-<     _method
-<       main
-<       SELF_TYPE
+13,323c13,14
 < 
 <       _let
 <         c
@@ -323,10 +311,5 @@
 <       : _no_type
 <     )
 ---
-> filename, line 19: syntax error at or near LOCATION
-> filename, line 20: syntax error at or near LOCATION
-> filename, line 34: syntax error at or near LOCATION
-> filename, line 35: syntax error at or near LOCATION
-> filename, line 42: syntax error at or near LOCATION
-> filename, line 49: syntax error at or near LOCATION
-> Compilation halted due to lex and syntax errors
+> ./myparser: line 2: 163440 Done                    ../lexer $*
+>      163441 Segmentation fault      (core dumped) | ../parser $*

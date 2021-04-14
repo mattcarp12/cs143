@@ -1,7 +1,0 @@
-"./multipleatdispatches.test", line 4: syntax error at or near OBJECTID = e1
-"./multipleatdispatches.test", line 5: syntax error at or near OBJECTID = e2
-"./multipleatdispatches.test", line 6: syntax error at or near OBJECTID = e3
-"./multipleatdispatches.test", line 7: syntax error at or near OBJECTID = x
-"./multipleatdispatches.test", line 8: syntax error at or near OBJECTID = y
-"./multipleatdispatches.test", line 9: syntax error at or near OBJECTID = z
-Compilation halted due to lex and parse errors

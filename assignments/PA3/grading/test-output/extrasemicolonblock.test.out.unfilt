@@ -1,2 +1,14 @@
-"./extrasemicolonblock.test", line 4: syntax error at or near STR_CONST =  "Hello"
-Compilation halted due to lex and parse errors
+#1
+_program
+  #1
+  _class
+    A
+    Object
+    "./extrasemicolonblock.test"
+    (
+    #2
+    _method
+      f
+      Int
+./myparser: line 2: 163623 Done                    ../lexer $*
+     163624 Segmentation fault      (core dumped) | ../parser $*

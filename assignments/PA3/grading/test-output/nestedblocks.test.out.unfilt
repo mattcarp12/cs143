@@ -1,4 +1,0 @@
-"./nestedblocks.test", line 5: syntax error at or near '{'
-"./nestedblocks.test", line 5: syntax error at or near INT_CONST = 3
-"./nestedblocks.test", line 6: syntax error at or near '{'
-Compilation halted due to lex and parse errors

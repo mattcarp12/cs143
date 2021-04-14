@@ -17,5 +17,5 @@ _program
     _method
       baz
       String
-./myparser: line 2: 384580 Done                    ../lexer $*
-     384581 Segmentation fault      (core dumped) | ../parser $*
+./myparser: line 2: 163865 Done                    ../lexer $*
+     163866 Segmentation fault      (core dumped) | ../parser $*
