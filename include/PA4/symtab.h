@@ -31,7 +31,6 @@ public:
   SYM get_id() const    { return id; }
   DAT *get_info() const { return info; }
 };
-
 //
 // SymbolTable<SYM,DAT> describes a symbol table mapping symbols of
 //    type `SYM' to data of type `DAT *'.  It is implemented as a

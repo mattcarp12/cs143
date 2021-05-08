@@ -139,27 +139,32 @@
     %type <formal> formal
     %type <cases> case_list
     %type <case_> case
-    %type <expressions> expression_list_comma
+    %type <expressions> expression_list_comma 
     %type <expressions> expression_list_semi
-    %type <expression> expression
+    %type <expressions> expression_semi
+    %type <expression> expression 
+    
 
     /* Matt's non-terminal list */
     %type <feature> let_attr
     %type <features> let_attr_list
     
     /* Precedence declarations go here. */
+    %right DARROW
+    NOT 
+    LE '<' '='
     %left '+' '-'  
-    %left '*' '/' 
-    %left '~' 
-    %left '<' 
-    %left DARROW 
-    %left '=' 
-    %left NOT 
+    %left '*' '/'  
     %left '('
+    ISVOID
+    '~'
+    '@'
+    '.'
     OBJECTID
     INT_CONST
     STR_CONST
     BOOL_CONST
+
     
     
     %%
@@ -190,7 +195,7 @@
     
     /* Feature list may be empty, but no empty features in list. */
     feature_list:		/* empty */
-    {  $$ = nil_Features(); }
+    { $$ = nil_Features(); }
     | feature /* single feature */
     { $$ = single_Features($1); }
     | feature_list feature /* several features */
@@ -205,7 +210,7 @@
     | OBJECTID ':' TYPEID ASSIGN expression ';'
     { $$ = attr($1,$3,$5); }
     | error ';'
-    {}
+    { }
     ;
 
     /* Let attribute list may not be empty */
@@ -221,6 +226,8 @@
     { $$ = attr($1,$3,no_expr()); }
     | OBJECTID ':' TYPEID ASSIGN expression
     { $$ = attr($1,$3,$5); }
+    | error ','
+    {}
     | error IN
     {}
     ;
@@ -247,7 +254,9 @@
 
     case: 
     OBJECTID ':' TYPEID DARROW expression ';' 
-    { branch($1, $3, $5); }
+    { $$ = branch($1, $3, $5); }
+    | error ';'
+    {}
     ;
     
     expression_list_comma:
@@ -259,24 +268,29 @@
     ;
 
     expression_list_semi:
+    expression_semi
+    { $$ = append_Expressions($1, nil_Expressions()); }
+    | expression_list_semi expression_semi
+    { $$ = append_Expressions($1, $2); }
+    ;
+
+    expression_semi:
     expression ';'
     { $$ = single_Expressions($1); }
-    | expression_list_semi expression ';'
-    { $$ = append_Expressions($1, single_Expressions($2)); }
     | error ';'
     {}
     ;
+    
 
     expression: 
-    { no_expr(); }
-    | OBJECTID ASSIGN expression   /* assignment */
+    OBJECTID ASSIGN expression   /* assignment */
     { $$ = assign($1, $3); }
     | expression '.' OBJECTID '(' expression_list_comma ')' /* normal dispatch */
     { $$ = dispatch($1, $3, $5); }
     | expression '@' TYPEID '.' OBJECTID '(' expression_list_comma ')' /* static dispatch */
     { $$ = static_dispatch($1, $3, $5, $7); }
     | OBJECTID '(' expression_list_comma ')' /* normal dispatch */
-    { $$ = dispatch(no_expr(), $1, $3); }
+    { $$ = dispatch(object(idtable.add_string("self")), $1, $3); }
     | IF expression THEN expression ELSE expression FI /* if-then-else */
     { $$ = cond($2, $4, $6); }
     | WHILE expression LOOP expression POOL    /* while loop */
@@ -284,7 +298,22 @@
     | '{' expression_list_semi '}'       /* block expression */
     { $$ = block($2); }
     | LET let_attr_list IN expression    /* let */
-    {}
+    { 
+      Expression l;
+      attr_class *a;
+      Features fl = $2;
+      int i, j;
+      for ( i = fl->first(); fl->more(i); i = fl->next(i)) {
+        j = fl->len() - i - 1;
+        a = (attr_class *)fl->nth(j);
+        if (i == 0) {
+          l = let(a->get_name(), a->get_type_decl(), a->get_init(), $4);
+        } else {
+          l = let(a->get_name(), a->get_type_decl(), a->get_init(), l);
+        }
+      }
+      $$ = l;
+    }
     | CASE expression OF case_list ESAC   /* case expression */
     { $$ = typcase($2, $4); }
     | NEW TYPEID    /* new */

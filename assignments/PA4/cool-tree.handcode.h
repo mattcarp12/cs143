@@ -61,7 +61,7 @@ virtual void dump_with_types(ostream&,int) = 0;
 
 #define class__EXTRAS                                 \
 Symbol get_filename() { return filename; }             \
-void dump_with_types(ostream&,int);                    
+void dump_with_types(ostream&,int);                   
 
 
 #define Feature_EXTRAS                                        \

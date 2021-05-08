@@ -20,19 +20,19 @@ _program
       #3
       _eq
         #3
+        _object
+          x
+        : _no_type
+        #3
         _eq
-          #3
-          _object
-            x
-          : _no_type
           #3
           _object
             y
           : _no_type
-        : _no_type
-        #3
-        _object
-          z
+          #3
+          _object
+            z
+          : _no_type
         : _no_type
       : _no_type
     )

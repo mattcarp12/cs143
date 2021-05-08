@@ -24,19 +24,19 @@
 > 
 >       _eq
 > 
->         _eq
+>         _object
+>           x
+>         : _no_type
 > 
->           _object
->             x
->           : _no_type
+>         _eq
 > 
 >           _object
 >             y
 >           : _no_type
->         : _no_type
 > 
->         _object
->           z
+>           _object
+>             z
+>           : _no_type
 >         : _no_type
 >       : _no_type
 >     )
