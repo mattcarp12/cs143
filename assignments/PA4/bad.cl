@@ -11,15 +11,8 @@ class C {
 };
 
 class Foo inherits Bar {};
-class Bar inherits Bat {
-      a: Str;
-};
-class Bat {
-      a: Int <- 10;
-      b: Str <- "Hello world";
-      c: Bool <- False;
-      (if c then a else b);
-};
+class Bar inherits Foo {};
+--class Bat {};
 
 Class Main {
 	main():C {

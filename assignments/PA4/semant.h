@@ -24,13 +24,12 @@ class ClassTable
 {
 private:
   int semant_errors;
-  void install_basic_classes();
   bool install_program_classes(Classes classes);
   ostream &error_stream;
 
   
 public:
-  ClassTable(Classes);
+  ClassTable();
   int errors() { return semant_errors; }
   ostream &semant_error();
   ostream &semant_error(Class_ c);

@@ -8,6 +8,15 @@
 
 extern int semant_debug;
 extern char *curr_filename;
+ClassTable *e = new ClassTable();
+
+void check() {
+  if (e->errors())
+  {
+    cerr << "Compilation halted due to static semantic errors." << endl;
+    exit(1);
+  }
+}
 
 //////////////////////////////////////////////////////////////////////
 //
@@ -80,19 +89,13 @@ static void initialize_constants(void)
     val = idtable.add_string("_val");
 }
 
-ClassTable::ClassTable(Classes classes) : semant_errors(0), error_stream(cerr)
+ClassTable::ClassTable() : semant_errors(0), error_stream(cerr)
 {
-    class_table = new SymbolTable<Symbol,Class__class>();
-    class_table->enterscope();
-
-    install_basic_classes();
-    install_program_classes(classes);
-
 }
 
 
 
-void ClassTable::install_basic_classes()
+void install_basic_classes(SymbolTable<Symbol,Class__class> *gst)
 {
 
     // The tree package uses these globals to annotate the classes built below.
@@ -205,144 +208,15 @@ void ClassTable::install_basic_classes()
 
 
     /* Add base classes to symbol table */
-    class_table->addid(Object,Object_class);
-    class_table->addid(Str,Str_class);
-    class_table->addid(Bool,Bool_class);
-    class_table->addid(Int,Int_class);
-    class_table->addid(IO,IO_class);
-
-
-    // class_table->enterscope();
-
-    // Object_class->scope = *class_table;
-    // Object_class->scope.addid(self, Object_class);
-    // Object_class->scope.addid(cool_abort, Object_class);
-    // Object_class->scope.addid(type_name, Str_class);
-    
-    // class_table->exitscope();
-    // class_table->enterscope();
-
-    // IO_class->scope = *class_table;
-    // IO_class->scope.addid(self, IO_class);
-    // IO_class->scope.addid(out_string, IO_class);
-    // IO_class->scope.addid(out_int, IO_class);
-    // IO_class->scope.addid(in_string, Str_class);
-    // IO_class->scope.addid(in_int, Str_class);
-
-    // class_table->exitscope();
-    // class_table->enterscope();
-
-    // Int_class->scope = *class_table;
-    // Int_class->scope.addid(self, Int_class);
-    // Int_class->scope.addid(val, Int_class);
-
-    // class_table->exitscope();
-    // class_table->enterscope();
-
-    // Bool_class->scope = *class_table;
-    // Bool_class->scope.addid(val, Bool_class);
-
-    // class_table->exitscope();
-    // class_table->enterscope();
-
-    // Str_class->scope = *class_table;
-    // Str_class->scope.addid(val, Int_class);
-    // Str_class->scope.addid(str_field, Str_class);
-    // Str_class->scope.addid(length, Int_class);
-    // Str_class->scope.addid(concat, Str_class);
-    // Str_class->scope.addid(substr, Str_class);
-
-    // class_table->exitscope();
-    
+    gst->addid(Object,Object_class);
+    gst->addid(Str,Str_class);
+    gst->addid(Bool,Bool_class);
+    gst->addid(Int,Int_class);
+    gst->addid(IO,IO_class);
     
 }
 
 bool ClassTable::install_program_classes(Classes classes) {
-  Class_ c = NULL;
-  Symbol cs = NULL;
-  Class_ parent_class = NULL;
-  Symbol parent_symbol = NULL;
-
-  /* Install user defined classes into class table */
-  bool main = FALSE;
-  for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
-    c = classes->nth(i);
-    cs = c->get_name();
-    class_table->addid(cs,c);
-     /* Check if Main class */
-    if (c->get_name() == Main) {
-      main = TRUE;
-    }
-  }
-  
-  if (!main) {
-    semant_error();
-    error_stream << "Program does not include Main class" << endl;
-    return FALSE;
-  }
-
-    
-  /* Make sure class inheriting from is defined in program */
-  for( int i = classes->first(); classes->more(i); i = classes->next(i)) {
-    c = classes->nth(i);
-    parent_symbol = c->get_parent();
-    parent_class = class_table->lookup(parent_symbol);
-    if (parent_class == NULL) {
-      semant_error(c);
-      error_stream << parent_symbol << ", parent class of " << c->get_name() << " , is undefined.\n"; 
-      return FALSE;
-    }
-  }
-  
-
-  /* Check inheritance graph for cycles */
-  for( int i = classes->first(); classes->more(i); i = classes->next(i)) {
-    c = classes->nth(i);
-    parent_symbol = c->get_parent();
-    Classes class_stack = single_Classes(c);
-    while(parent_symbol != Object) {
-      /* Look to see if parent is already on the stack */
-      for (int j = class_stack->first(); class_stack->more(j); j = class_stack->next(j)) {
-    	if (parent_symbol == class_stack->nth(j)->get_name()) {
-    	  semant_error(c);
-          error_stream << "Cycle detected in inheritance graph\n";
-          return FALSE;
-    	}
-      }
-
-      /* Otherwise add next inherited class to stack */
-      parent_class = class_table->probe(parent_symbol);
-      class_stack = append_Classes(class_stack, single_Classes(parent_class));
-      parent_symbol = parent_class->get_parent();
-    }
-  }
-
-  
-  // /*
-  //   Create scope for each class and add class features to it
-  //  */
-  // for (int i = classes->first(); classes->more(i); i = classes->next(i)) {
-
-  //   // Get ith class in program
-  //   c = classes->nth(i);
-
-  //   // Create branch in scope tree for class
-  //   class_table->enterscope();
-  //   c->scope = *class_table;
-  //   class_table->exitscope();
-
-  //   // Add features
-  //   Features fs = c->get_features();
-  //   for (int j = fs->first(); fs->more(j); j = fs->next(j)) {
-  //     Feature f = fs->nth(j);
-  //     Class_ feature_class = class_table->probe(f->get_type());
-  //     c->scope.addid(f->get_name(), feature_class);
-  //   }
-  //   c->scope.dump();
-  // }
-
-
-  
   return TRUE;
 }
 
@@ -391,11 +265,97 @@ ostream &ClassTable::semant_error()
 
 
 
-void program_class::def() {}
-void class__class::def() {}
-void method_class::def() {}
-void attr_class::def() {}
-void formal_class::def() {}
+void program_class::def() {
+  gst = new SymbolTable<Symbol,Class__class>();
+  gst->enterscope();
+  install_basic_classes(gst);
+  
+  for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
+    Class_ c = classes->nth(i);
+    Symbol cs = c->get_name();
+    gst->addid(cs,c);
+  }
+  
+}
+void class__class::def(SymbolTable<Symbol,Class__class> *gst) {
+  /*
+
+    The symbol table is to be constructed recursively.
+
+    The base condition is the class's parent symbol table is already on the stack. 
+
+    How to check?
+
+    Ok so the built-in class scope trees are built. And I'm certain my parent class exists
+    and there is no cycle. Sitting pretty. Now I just need to:
+      - Find my parent class's node by probing global symbol table (gst)
+      - Get my parent's scope
+      - Push, assign, pop scope to myself.
+
+    After all that is done, I've finally created my class scopes (mscope and oscope).
+
+    Next I need to recursively call def() on each of my features.
+
+    The feature will install itself in the class scope. The AST node will know whether to
+    add itself to mscope or oscope.
+
+   */
+
+  if ( name == Object ) {
+    gst->enterscope();
+    mscope = *gst;
+    gst->exitscope();
+    gst->enterscope();
+    oscope = *gst;
+    gst->exitscope();
+  } else {
+    // Check if parent scope is created
+    Class_ parent_class = gst->probe(parent);
+    Class_ self_class = parent_class->oscope.probe(self);
+    if (self_class == NULL) {
+      parent_class->def(gst);
+    }
+    // At this point we know the parent class's symbol table has been defined and populated
+    parent_class->mscope.enterscope();
+    mscope = parent_class->mscope;
+    parent_class->mscope.exitscope();
+    parent_class->oscope.enterscope();
+    oscope = parent_class->oscope;
+    parent_class->oscope.exitscope();
+  }
+
+  // Add builtin symbols
+  oscope.addid(self, this);
+  oscope.addid(SELF_TYPE, this);
+  
+  // Add features
+  for (int j = features->first(); features->more(j); j = features->next(j)) {
+    features->nth(j)->def(this);
+  }
+}
+void method_class::def(Class_ parent) {
+  // Add self to owning class's mscope
+  Class_ method_type = parent->mscope.lookup(return_type);
+  parent->mscope.addid(name, method_type);
+
+  // Push scope to oscope for method formals
+  parent->oscope.enterscope();
+  oscope = parent->oscope;
+  parent->oscope.exitscope();
+  for ( int i = formals->first(); formals->more(i); i = formals->next(i) ) {
+    formals->nth(i)->def(&oscope);
+  }
+  expr->def();
+}
+void attr_class::def(Class_ parent) {
+  // Add myself to the class's symbol table
+  Class_ attr_type = parent->oscope.lookup(type_decl);
+  parent->oscope.addid(name, attr_type);
+}
+void formal_class::def(SymbolTable<Symbol,Class__class> *oscope) {
+  Class_ formal_type = oscope->lookup(type_decl);
+  oscope->addid(name, formal_type);
+}
 void branch_class::def() {}
 void assign_class::def() {}
 void static_dispatch_class::def() {}
@@ -447,32 +407,96 @@ void object_class::def() {}
 void program_class::semant(){
     initialize_constants();
 
-    /* Global Symbol Table */
-    ClassTable *classtable = new ClassTable(classes);
+    // Define class symbols in root of symbol tree
+    def();
 
-    if (classtable->errors())
-    {
-        cerr << "Compilation halted due to static semantic errors." << endl;
-        exit(1);
+    /*
+
+      Perform semantic analysis on class list:
+        X Check for Main class
+	X Check each parent class is defined
+	X Check for inheritance cycle
+	- Check no class inherits from Int, Bool, Str
+
+     */
+
+    bool main = FALSE;
+    for ( int i = classes->first(); classes->more(i); i = classes->next(i)) {
+      Class_ c = classes->nth(i);
+      Symbol cs = c->get_name();
+      if (cs == Main) main = TRUE;
     }
+    if (!main) e->semant_error();
+
+        
+  /* Make sure class inheriting from is defined in program */
+  for( int i = classes->first(); classes->more(i); i = classes->next(i)) {
+    Class_ c = classes->nth(i);
+    Symbol parent_symbol = c->get_parent();
+    Class_ parent_class = gst->lookup(parent_symbol);
+    if (parent_class == NULL) {
+      e->semant_error(c);  
+      cerr << parent_symbol << ", parent class of " << c->get_name() << " , is undefined.\n"; 
+    } check();
+  }
+  
+
+  /* Check inheritance graph for cycles */
+  for( int i = classes->first(); classes->more(i); i = classes->next(i)) {
+    Class_ c = classes->nth(i);
+    Symbol parent_symbol = c->get_parent();
+    Classes class_stack = single_Classes(c);
+    while(parent_symbol != Object) {
+      /* Look to see if parent is already on the stack */
+      for (int j = class_stack->first(); class_stack->more(j); j = class_stack->next(j)) {
+    	if (parent_symbol == class_stack->nth(j)->get_name()) {
+    	  e->semant_error(c);
+          cerr << "Cycle detected in inheritance graph\n";
+    	}
+      } check();
+
+      /* Otherwise add next inherited class to stack */
+      Class_ parent_class = gst->probe(parent_symbol);
+      class_stack = append_Classes(class_stack, single_Classes(parent_class));
+      parent_symbol = parent_class->get_parent();
+    }
+  }
+
+  check();
 
 
+  /*
+
+    At this point we know the class inheritance graph is well formed.
+    We can carry on def'ing and ref'ing without a care in the world.
+    First we need to manually construct the scope tree starting with 
+    Object class and adding the other built-in classes.
+
+   */
+
+  //  Object_class->def(gst);
+  //  IO_class->def(gst);
+  //  Int_class->def(gst);
+  //  Bool_class->def(gst);
+  //  Str_class->def(gst);
+  gst->probe(Object)->def(gst);
+  
+  for ( int i = classes->first(); classes->more(i); i = classes->next(i)) {
+    Class_ c = classes->nth(i);
+    c->def(gst);
+  }
     
   for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
-    cout << "Starting semant on " << classes->nth(i)->get_name() << endl;
-    classes->nth(i)->semant(classtable);
+    //cout << "Starting semant on " << classes->nth(i)->get_name() << endl;
+    //classes->nth(i)->semant(classtable);
   }
 
   //dump_with_types(cout,0);
 
     
-    /* some semantic analysis code may go here */
+  /* some semantic analysis code may go here */
+  check();
 
-    if (classtable->errors())
-    {
-        cerr << "Compilation halted due to static semantic errors." << endl;
-        exit(1);
-    }
 }
 
 
@@ -527,12 +551,6 @@ void class__class::semant(ClassTable *classtable) {
 
 
 
-
-
-
-
-
-
 void method_class::semant(ClassTable *classtable) {
   /*
 
@@ -546,12 +564,6 @@ void method_class::semant(ClassTable *classtable) {
    */
 
   cout << "Starting semantic analysis on " << name << endl;
-
-  // Push new scope
-  //  SymbolTable<Symbol,Class__class> *scope = classtable->gst->probe(
-  // scope->enterscope();
-  //  scope.dump();
-
 
   // Evaluate formals
   for (int i = formals->first(); formals->more(i); i = formals->next(i)) {

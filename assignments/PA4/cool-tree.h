@@ -25,7 +25,7 @@ class Program_class : public tree_node {
 public:
    tree_node *copy()		 { return copy_Program(); }
    virtual Program copy_Program() = 0;
-  SymbolTable<Symbol,Class__class> gst;
+  SymbolTable<Symbol,Class__class> *gst;
   virtual void def() = 0;
 
 #ifdef Program_EXTRAS
@@ -45,7 +45,7 @@ public:
    virtual Symbol get_parent() = 0;
    virtual Features get_features() = 0;
    virtual void semant(ClassTable *classtable) = 0;
-   virtual void def() = 0;
+   virtual void def(SymbolTable<Symbol,Class__class> *gst) = 0;
    SymbolTable<Symbol,Class__class> oscope;
    SymbolTable<Symbol,Class__class> mscope;
   
@@ -66,8 +66,8 @@ public:
    virtual Symbol get_type() = 0;
    virtual Symbol get_name() = 0;
    virtual int get_feature_type() = 0;
-   virtual void def() = 0;
-  SymbolTable<Symbol,Class__class> oscope;
+   virtual void def(Class_ parent) = 0;
+   SymbolTable<Symbol,Class__class> oscope;
    SymbolTable<Symbol,Class__class> mscope;
 
      
@@ -85,7 +85,7 @@ public:
    tree_node *copy()		 { return copy_Formal(); }
    virtual Formal copy_Formal() = 0;
    virtual void semant() = 0;
-   virtual void def() = 0;
+  virtual void def(SymbolTable<Symbol,Class__class> *oscope) = 0;
   
 #ifdef Formal_EXTRAS
    Formal_EXTRAS
@@ -194,7 +194,7 @@ public:
    Features get_features() { return features; }
    void dump(ostream& stream, int n);
    void semant(ClassTable *classtable);
-   void def();
+   void def(SymbolTable<Symbol,Class__class> *gst);
   
 #ifdef Class__SHARED_EXTRAS
    Class__SHARED_EXTRAS
@@ -225,7 +225,7 @@ public:
    Symbol get_type() { return return_type; }
    Symbol get_name() { return name; }
    int get_feature_type() { return 0; }
-   void def();
+   void def(Class_ parent);
   
 #ifdef Feature_SHARED_EXTRAS
    Feature_SHARED_EXTRAS
@@ -254,7 +254,7 @@ public:
    Symbol get_type() { return type_decl; }
    Symbol get_name() { return name; }
    int get_feature_type() { return 1; }
-   void def();
+   void def(Class_ parent);
   
 #ifdef Feature_SHARED_EXTRAS
    Feature_SHARED_EXTRAS
@@ -279,7 +279,7 @@ public:
    void dump(ostream& stream, int n);
    void semant();
    // Formals do not need associated scope
-   void def();
+  void def(SymbolTable<Symbol,Class__class> *oscope);
   
 #ifdef Formal_SHARED_EXTRAS
    Formal_SHARED_EXTRAS

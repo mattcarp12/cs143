@@ -10,7 +10,8 @@ class C {
 	};
 };
 
-
+class Foo {};
+class Bar inherits Foo {};
 
 
 Class Main {
