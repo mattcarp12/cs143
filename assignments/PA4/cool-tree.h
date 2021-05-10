@@ -44,7 +44,7 @@ public:
    virtual Symbol get_name() = 0;
    virtual Symbol get_parent() = 0;
    virtual Features get_features() = 0;
-   virtual void semant(ClassTable *classtable) = 0;
+   virtual void semant() = 0;
    virtual void def(SymbolTable<Symbol,Class__class> *gst) = 0;
    SymbolTable<Symbol,Class__class> oscope;
    SymbolTable<Symbol,Class__class> mscope;
@@ -62,7 +62,7 @@ class Feature_class : public tree_node {
 public:
    tree_node *copy()		 { return copy_Feature(); }
    virtual Feature copy_Feature() = 0;
-   virtual void semant(ClassTable *classtable) = 0;
+   virtual void semant() = 0;
    virtual Symbol get_type() = 0;
    virtual Symbol get_name() = 0;
    virtual int get_feature_type() = 0;
@@ -193,7 +193,7 @@ public:
    Symbol get_parent() { return parent; }
    Features get_features() { return features; }
    void dump(ostream& stream, int n);
-   void semant(ClassTable *classtable);
+   void semant();
    void def(SymbolTable<Symbol,Class__class> *gst);
   
 #ifdef Class__SHARED_EXTRAS
@@ -221,7 +221,7 @@ public:
    }
    Feature copy_Feature();
    void dump(ostream& stream, int n);
-   void semant(ClassTable *classtable);
+   void semant();
    Symbol get_type() { return return_type; }
    Symbol get_name() { return name; }
    int get_feature_type() { return 0; }
@@ -250,7 +250,7 @@ public:
    }
    Feature copy_Feature();
    void dump(ostream& stream, int n);
-   void semant(ClassTable *classtable);
+   void semant();
    Symbol get_type() { return type_decl; }
    Symbol get_name() { return name; }
    int get_feature_type() { return 1; }
@@ -328,8 +328,8 @@ public:
    }
    Expression copy_Expression();
    void dump(ostream& stream, int n);
-  void semant();
-     void def();
+   void semant();
+   void def();
   
 #ifdef Expression_SHARED_EXTRAS
    Expression_SHARED_EXTRAS

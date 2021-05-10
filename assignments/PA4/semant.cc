@@ -264,19 +264,20 @@ ostream &ClassTable::semant_error()
 
 
 
-
 void program_class::def() {
   gst = new SymbolTable<Symbol,Class__class>();
   gst->enterscope();
   install_basic_classes(gst);
-  
+
+  bool redef = FALSE;
   for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
     Class_ c = classes->nth(i);
     Symbol cs = c->get_name();
+    if (gst->probe(cs) != NULL) e->semant_error(c);
     gst->addid(cs,c);
   }
-  
 }
+
 void class__class::def(SymbolTable<Symbol,Class__class> *gst) {
   /*
 
@@ -333,6 +334,7 @@ void class__class::def(SymbolTable<Symbol,Class__class> *gst) {
     features->nth(j)->def(this);
   }
 }
+
 void method_class::def(Class_ parent) {
   // Add self to owning class's mscope
   Class_ method_type = parent->mscope.lookup(return_type);
@@ -347,15 +349,18 @@ void method_class::def(Class_ parent) {
   }
   expr->def();
 }
+
 void attr_class::def(Class_ parent) {
   // Add myself to the class's symbol table
   Class_ attr_type = parent->oscope.lookup(type_decl);
   parent->oscope.addid(name, attr_type);
 }
+
 void formal_class::def(SymbolTable<Symbol,Class__class> *oscope) {
   Class_ formal_type = oscope->lookup(type_decl);
   oscope->addid(name, formal_type);
 }
+
 void branch_class::def() {}
 void assign_class::def() {}
 void static_dispatch_class::def() {}
@@ -408,7 +413,7 @@ void program_class::semant(){
     initialize_constants();
 
     // Define class symbols in root of symbol tree
-    def();
+    this->def();
 
     /*
 
@@ -417,6 +422,7 @@ void program_class::semant(){
 	X Check each parent class is defined
 	X Check for inheritance cycle
 	- Check no class inherits from Int, Bool, Str
+	- Check no class is redefined
 
      */
 
@@ -474,11 +480,6 @@ void program_class::semant(){
 
    */
 
-  //  Object_class->def(gst);
-  //  IO_class->def(gst);
-  //  Int_class->def(gst);
-  //  Bool_class->def(gst);
-  //  Str_class->def(gst);
   gst->probe(Object)->def(gst);
   
   for ( int i = classes->first(); classes->more(i); i = classes->next(i)) {
@@ -487,11 +488,11 @@ void program_class::semant(){
   }
     
   for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
-    //cout << "Starting semant on " << classes->nth(i)->get_name() << endl;
-    //classes->nth(i)->semant(classtable);
+    cout << "Starting semant on " << classes->nth(i)->get_name() << endl;
+    classes->nth(i)->semant();
   }
 
-  //dump_with_types(cout,0);
+  dump_with_types(cout,0);
 
     
   /* some semantic analysis code may go here */
@@ -514,7 +515,7 @@ void program_class::semant(){
 
 
 
-void class__class::semant(ClassTable *classtable) {
+void class__class::semant() {
   /*
 
     Class semantic analysis:
@@ -527,19 +528,10 @@ void class__class::semant(ClassTable *classtable) {
 
   cout << "Performing semantic analysis on " << name << endl;
   for ( int i = features->first(); features->more(i); i = features->next(i)) {
-
     Feature f = features->nth(i);
-    
     cout << "Feature has type : " << f->get_type() << endl;
-
-    // Make new scope branch for feature
-    // scope.enterscope();
-    // f->scope = scope;
-    // scope.exitscope();
-
-    f->semant(classtable);
+    f->semant();
   }
-
 
   cout << "Finishing semantic analysis on " << name << endl;
 
@@ -551,7 +543,7 @@ void class__class::semant(ClassTable *classtable) {
 
 
 
-void method_class::semant(ClassTable *classtable) {
+void method_class::semant() {
   /*
 
     Method semantic analysis:
@@ -571,7 +563,6 @@ void method_class::semant(ClassTable *classtable) {
     f->semant();
     
   }
-
   
   expr->semant();
 
@@ -579,6 +570,7 @@ void method_class::semant(ClassTable *classtable) {
       cout << "Method expression has type: " << expr->get_type() << endl;
   }
 
+  // Check types, raise error if anything
   
   cout << "Finishing semantic analysis on " << name << endl;
 }
@@ -592,9 +584,12 @@ void method_class::semant(ClassTable *classtable) {
 
 
 
-void attr_class::semant(ClassTable *classtable) {
+void attr_class::semant() {
 
   cout << "Starting semantic analysis on " << name << endl;
+
+  init->semant();
+  // Check types agree
 
   cout << "Finishing semantic analysis on " << name << endl;
   
@@ -618,7 +613,7 @@ void formal_class::semant() {
   
   cout << "Starting semantic analysis on " << name << endl;
 
-  
+  // Nothing to do here
 
   cout << "Finishing semantic analysis on " << name << endl;
   
@@ -632,6 +627,8 @@ void branch_class::semant() {
   
   cout << "Starting semantic analysis on " << name << endl;
 
+  // set_type();
+
   cout << "Finishing semantic analysis on " << name << endl;
   
 
@@ -641,57 +638,82 @@ void branch_class::semant() {
 
 void assign_class::semant() {
 
-
   cout << "Starting semantic analysis on " << name << endl;
 
-  cout << "Finishing semantic analysis on " << name << endl;
-  
+  expr->semant();
 
+  // Check expression type is same as oscope->lookup(name);
+
+  // Set type to expression type
+  // set_type();
+  
+  cout << "Finishing semantic analysis on " << name << endl;
 
 }
 
 
 void static_dispatch_class::semant() {
-
-
   
   cout << "Starting semantic analysis on " << name << endl;
 
-  cout << "Finishing semantic analysis on " << name << endl;
+  expr->semant();
+  // Check expression type is subtype of 'type_name'
   
 
+  for (int i = actual->first(); actual->more(i); i = actual->next(i)) {
+    Expression exp = actual->nth(i);
+    exp->semant();
+  }
+
+  // Lookup type for 'name'
+  //Class_ typ = oscope->lookup(name);
+  //set_type(typ->get_name());
+  
+  cout << "Finishing semantic analysis on " << name << endl;
   
 }
 
 
 void dispatch_class::semant() {
-
-
   
   cout << "Starting semantic analysis on " << name << endl;
 
-  cout << "Finishing semantic analysis on " << name << endl;
+  expr->semant();
+
+  for (int i = actual->first(); actual->more(i); i = actual->next(i)) {
+    Expression exp = actual->nth(i);
+    exp->semant();
+  }
+
+  // Set expression type to method return type
+  // set_type();
   
-
-
+  cout << "Finishing semantic analysis on " << name << endl;
 
 }
 
 
 void cond_class::semant() {
 
+  pred->semant();
+  // Check pred has type Bool
 
+  then_exp->semant();
+  else_exp->semant();
 
-
-
+  // Set type to lub() of two above types
+  // set_type(lub());
 
 }
 
 
 void loop_class:: semant() {
 
+  pred->semant();
+  body->semant();
 
-
+  // Set type to ...
+  // set_type();
 
 }
 
