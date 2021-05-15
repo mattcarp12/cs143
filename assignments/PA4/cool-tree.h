@@ -98,11 +98,12 @@ typedef class Expression_class *Expression;
 
 class Expression_class : public tree_node {
 public:
-   SymbolTable<Symbol,Class__class> scope;
    tree_node *copy()		 { return copy_Expression(); }
    virtual Expression copy_Expression() = 0;
    virtual void semant() = 0;
    virtual void def() = 0;
+   SymbolTable<Symbol,Class__class> oscope;
+   SymbolTable<Symbol,Class__class> mscope;
   
 #ifdef Expression_EXTRAS
    Expression_EXTRAS
@@ -119,6 +120,8 @@ public:
    virtual Case copy_Case() = 0;
    virtual void semant() = 0;
    virtual void def() = 0;
+  SymbolTable<Symbol,Class__class> oscope;
+  SymbolTable<Symbol,Class__class> mscope;
   
 #ifdef Case_EXTRAS
    Case_EXTRAS
