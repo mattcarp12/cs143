@@ -213,6 +213,7 @@ void install_basic_classes(SymbolTable<Symbol,Class__class> *gst)
     gst->addid(Bool,Bool_class);
     gst->addid(Int,Int_class);
     gst->addid(IO,IO_class);
+    gst->addid(SELF_TYPE,Object_class);
     
 }
 
@@ -269,11 +270,18 @@ void program_class::def() {
   gst->enterscope();
   install_basic_classes(gst);
 
-  bool redef = FALSE;
   for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
     Class_ c = classes->nth(i);
     Symbol cs = c->get_name();
-    if (gst->probe(cs) != NULL) e->semant_error(c);
+    if (gst->probe(cs) != NULL) {
+      e->semant_error(c);
+      cerr << "Redefinition of basic class " << cs << "." << endl;
+    }
+    Symbol parent = c->get_parent();
+    if (parent == Bool || parent == SELF_TYPE || parent == Str) {
+      e->semant_error(c);
+      cerr << "Class " << cs << " cannot inherit class " << parent << "." << endl;
+    }
     gst->addid(cs,c);
   }
 }
@@ -316,6 +324,9 @@ void class__class::def(SymbolTable<Symbol,Class__class> *gst) {
     if (self_class == NULL) {
       parent_class->def(gst);
     }
+    // if (parent_class == NULL) {
+    //   parent_class->def(gst);
+    // }
     // At this point we know the parent class's symbol table has been defined and populated
     parent_class->mscope.enterscope();
     mscope = parent_class->mscope;
@@ -336,8 +347,19 @@ void class__class::def(SymbolTable<Symbol,Class__class> *gst) {
 }
 
 void method_class::def(Class_ parent) {
+  Class_ method_type;
+  if (return_type == SELF_TYPE) {
+    method_type = parent->oscope.lookup(self);
+  } else {
+    // Check return type exists
+    method_type = parent->mscope.lookup(return_type);
+    if (method_type == NULL) {
+      e->semant_error(parent);
+      cerr << "Undefined return type " << return_type << " in method " << name << "." << endl;
+    }
+  }
   // Add self to owning class's mscope
-  Class_ method_type = parent->mscope.lookup(return_type);
+  
   parent->mscope.addid(name, method_type);
   mscope = parent->mscope;
   
@@ -346,6 +368,15 @@ void method_class::def(Class_ parent) {
   oscope = parent->oscope;
   parent->oscope.exitscope();
   for ( int i = formals->first(); formals->more(i); i = formals->next(i) ) {
+    Formal f = formals->nth(i);
+    if (f->get_name() == self) {
+      e->semant_error(oscope.lookup(self));
+      cerr << "'self' cannot be the name of a formal parameter." << endl;
+    }
+    if (f->get_type() == SELF_TYPE) {
+      e->semant_error(oscope.lookup(self));
+      cerr << "Formal parameter " << f->get_name() << " cannot have type SELF_TYPE." << endl;
+    }
     formals->nth(i)->def(&oscope);
   }
 
@@ -499,14 +530,13 @@ void program_class::semant(){
   gst->probe(Int)->def(gst);
   gst->probe(Bool)->def(gst);
   gst->probe(Str)->def(gst);
-
-  
+   
   for ( int i = classes->first(); classes->more(i); i = classes->next(i)) {
     Class_ c = classes->nth(i);
     c->def(gst);
   }
-  check();
-    
+  //check();
+     
   for( int i = classes->first(); classes->more(i); i = classes->next(i)) { 
     classes->nth(i)->semant();
   }
@@ -531,8 +561,6 @@ void class__class::semant() {
 
    */
 
-  //cout << " Class : " << name << endl;
-
   for ( int i = features->first(); features->more(i); i = features->next(i)) {
     Feature f = features->nth(i);
     f->semant();
@@ -551,10 +579,12 @@ void method_class::semant() {
 
 
    */
-  //cout << "Method : " << name << endl ;
+  
   // Evaluate formals
   for (int i = formals->first(); formals->more(i); i = formals->next(i)) {
     Formal f = formals->nth(i);
+    f->oscope = oscope;
+    f->mscope = mscope;
     f->semant();
   }
 
@@ -578,7 +608,7 @@ void attr_class::semant() {
 
 
 void formal_class::semant() {
-
+ 
 }
  
 
@@ -608,6 +638,12 @@ void assign_class::semant() {
 
   //cout << "Identifier type: " << oscope.lookup(name)->get_name() << endl;
 
+  // Check type conformance
+  Class_ id_type = oscope.lookup(name);
+  if (id_type->get_name() != expr->get_type()) {
+    e->semant_error(oscope.lookup(self));
+    cerr << "Type " << expr->get_type() << " of assigned expression does not conform to declared type " << id_type->get_name() << " of identifier " << name << "." << endl;
+  }
   // Set type to expression type
   set_type(expr->get_type());
   
@@ -615,19 +651,27 @@ void assign_class::semant() {
 
 
 void static_dispatch_class::semant() {
-  
+
+  expr->oscope = oscope;
+  expr->mscope = mscope;
   expr->semant();
   // Check expression type is subtype of 'type_name'
   
 
   for (int i = actual->first(); actual->more(i); i = actual->next(i)) {
     Expression exp = actual->nth(i);
+    exp->oscope = oscope;
+    exp->mscope = mscope;
     exp->semant();
   }
 
   // Lookup type for 'name'
-  //Class_ typ = oscope->lookup(name);
-  //set_type(typ->get_name());
+
+  Class_ type = oscope.lookup(type_name);
+
+  Class_ ret_type = type->mscope.lookup(name);
+
+  set_type(ret_type->get_name());
   
 }
 
@@ -635,7 +679,8 @@ void static_dispatch_class::semant() {
 void dispatch_class::semant() {
   expr->oscope = oscope;
   expr->mscope = mscope;
-  expr->semant();  
+  expr->semant();
+
   for (int i = actual->first(); actual->more(i); i = actual->next(i)) {
     Expression exp = actual->nth(i);
     exp->oscope = oscope;
@@ -643,45 +688,81 @@ void dispatch_class::semant() {
     exp->semant();
   }
   
-  // Set expression type to method return type
-  //cout << "Method name : " << name << endl;
-  //mscope.dump();
-
+      
   // Get expression type
   Class_ exp_type = oscope.lookup(expr->get_type());
+  Symbol type_symbol;
   Class_ ret_type = exp_type->mscope.lookup(name);
-  set_type(ret_type->get_name());
-
+  // Check if method is defined on expression's type
+  if (ret_type == NULL) {
+    e->semant_error(oscope.lookup(self));
+    cerr << "Dispatch to undefined method " << name << "." << endl;
+    type_symbol = Object;
+  }else {
+    type_symbol = ret_type->get_name();
+  }
+  //if (expr->get_type() == SELF_TYPE)
+  //type_symbol = SELF_TYPE;
+  set_type(type_symbol);    
 }
 
 
 void cond_class::semant() {
-
+  pred->oscope = oscope;
+  pred->mscope = mscope;
   pred->semant();
   // Check pred has type Bool
+  if (pred->get_type() != Bool){
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "If predicate must be type Bool" << endl;
+  }
 
+  then_exp->oscope = oscope;
+  then_exp->mscope = mscope;
   then_exp->semant();
+
+  else_exp->oscope = oscope;
+  else_exp->mscope = mscope;
   else_exp->semant();
 
   // Set type to lub() of two above types
-  // set_type(lub());
+  set_type(Object);
 
 }
 
 
 void loop_class:: semant() {
-
+  pred->oscope = oscope;
+  pred->mscope = mscope;
   pred->semant();
+
+  if (pred->get_type() != Bool) {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Loop predicate must be type Bool" << endl;
+  }
+
+  body->oscope = oscope;
+  body->mscope = mscope;
   body->semant();
 
-  // Set type to ...
-  // set_type();
+  // Set type to Object always
+  set_type(Object);
 
 }
 
 
 void typcase_class::semant() {
-
+  expr->oscope = oscope;
+  expr->mscope = mscope;
+  for (int i = cases->first(); cases->more(i); i = cases->next(i)) {
+    Case cas = cases->nth(i);
+    cas->oscope = oscope;
+    cas->mscope = mscope;
+    cas->semant();
+  }
+  set_type(Object);
 }
 
 
@@ -714,7 +795,10 @@ void let_class::semant() {
   init->mscope = mscope;
   init->semant();
 
+  oscope.enterscope();
   body->oscope = oscope;
+  oscope.exitscope();
+  body->oscope.addid(identifier, oscope.lookup(type_decl));
   body->mscope = mscope;
   body->semant();
 
@@ -731,62 +815,169 @@ void let_class::semant() {
 
 
 void plus_class::semant() {
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Int);
+
+  if (e1->get_type() == Int && e2->get_type() == Int) {
+    set_type(Int);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal arithmetic with a basic type." << endl;
+  } 
 }
 
 
 void sub_class::semant() {
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Int);
+
+  if (e1->get_type() == Int && e2->get_type() == Int) {
+    set_type(Int);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal arithmetic with a basic type." << endl;
+  } 
 }
 
 
 void mul_class::semant() {
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Int);
+
+  if (e1->get_type() == Int && e2->get_type() == Int) {
+    set_type(Int);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal arithmetic with a basic type." << endl;
+  }
 }
 
 
 void divide_class::semant() {
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Int);
+
+  if (e1->get_type() == Int && e2->get_type() == Int) {
+    set_type(Int);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal arithmetic with a basic type." << endl;
+  }
 }
 
 
 void neg_class::semant() {
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
-  set_type(Int);
+  if (e1->get_type() == Int) {
+    set_type(Int);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal arithmetic with a basic type" << endl;
+  }
+
 }
 
 
 void lt_class::semant() {
+  
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Bool);
+
+  if (e1->get_type() == Int && e2->get_type() == Int) {
+    set_type(Bool);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal comparison with a basic type." << endl;
+  }
 }
 
 
 void eq_class::semant() {
+  
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Bool);
+  
+  if ((e1->get_type() == Int && e2->get_type() != Int) ||
+      (e2->get_type() == Int && e1->get_type() != Int) || 
+      (e1->get_type() == Bool && e2->get_type() != Bool) || 
+      (e2->get_type() == Bool && e1->get_type() != Bool) || 
+      (e1->get_type() == Str && e2->get_type() != Str) ||
+      (e2->get_type() == Str && e1->get_type() != Str)){
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal comparison with a basic type." << endl;
+  } else {
+    set_type(Bool);
+  }
 }
 
 
 void leq_class::semant() {
+ 
+  e1->oscope = oscope;
+  e1->mscope = mscope;
   e1->semant();
+
+  e2->oscope = oscope;
+  e2->mscope = mscope;
   e2->semant();
-  set_type(Bool);
+
+  if (e1->get_type() == Int && e2->get_type() == Int) {
+    set_type(Bool);
+  } else {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal comparison with a basic type." << endl;
+    set_type(Bool);
+  }
 }
 
 
 void comp_class::semant() {
   e1->semant();
+  if (e1->get_type() != Bool) {
+    Class_ parent = oscope.lookup(self);
+    e->semant_error(parent);
+    cerr << "Illegal complement operation on class: " << parent->get_name() << endl;
+  }
   set_type(Bool);
 }
 
@@ -820,11 +1011,27 @@ void string_const_class::semant() {
 
 
 void new__class::semant() {
-  set_type(type_name);
+  if (type_name == SELF_TYPE)
+    set_type(SELF_TYPE);
+  else {
+    // Check type exists
+    Class_ type = oscope.lookup(type_name);
+    if (type == NULL) {
+      Class_ parent = oscope.lookup(self);
+      e->semant_error(parent);
+      cerr << "'new' used with undefined class " << type_name << "." << endl;
+    }
+
+    set_type(type_name);
+    
+  }
 }
 
 
 void isvoid_class::semant() {
+  e1->oscope = oscope;
+  e1->mscope = mscope;
+  e1->semant();
   set_type(Bool);
 }
 
@@ -836,9 +1043,18 @@ void no_expr_class::semant() {
 
 void object_class::semant() {
   // Look up symbol in scope, set to type
-  //  cout << "Object : " << name << endl;
-  //  oscope.dump();
+  // cout << "Object : " << name << endl;
+  // oscope.dump();
   Class_ sc = oscope.lookup(name);
-  //  cout << "Class of object : " << name << " is : " << sc->get_name() << endl;
-  set_type(oscope.lookup(name)->get_name());
+  if (sc == NULL) {
+    e->semant_error(oscope.lookup(self));
+    cerr << "Undeclared identifier " << name << "." << endl;
+    set_type(Object);
+  } else {
+  // cout << "Class of object : " << name << " is : " << sc->get_name() << endl;
+  if ( name == self ) 
+    set_type(SELF_TYPE);
+  else
+    set_type(oscope.lookup(name)->get_name());
+  }
 }

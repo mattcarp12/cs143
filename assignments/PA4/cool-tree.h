@@ -85,7 +85,11 @@ public:
    tree_node *copy()		 { return copy_Formal(); }
    virtual Formal copy_Formal() = 0;
    virtual void semant() = 0;
+  virtual Symbol get_name() = 0;
+  virtual Symbol get_type() = 0;
   virtual void def(SymbolTable<Symbol,Class__class> *oscope) = 0;
+  SymbolTable<Symbol,Class__class> oscope;
+  SymbolTable<Symbol,Class__class> mscope;
   
 #ifdef Formal_EXTRAS
    Formal_EXTRAS
@@ -281,6 +285,8 @@ public:
    Formal copy_Formal();
    void dump(ostream& stream, int n);
    void semant();
+  Symbol get_name() { return name; }
+  Symbol get_type() { return type_decl; }
    // Formals do not need associated scope
   void def(SymbolTable<Symbol,Class__class> *oscope);
   

@@ -32,6 +32,15 @@ private:
    void code_select_gc();
    void code_constants();
 
+// The following methods are Matt's fancy methods
+
+   void code_class_prototypes();                // Emit code for object prototypes
+   void code_class_nameTab();                   // Emit code for class_nameTab
+   void code_class_objTab();
+   void code_dispatch_tables();                 // Emit code for dispatch tables
+   void code_class_initializers();              // Emit code for class initilization methods
+   void code_class_methods();                   // Emit code for class methods
+
 // The following creates an inheritance graph from
 // a list of classes.  The graph is implemented as
 // a tree of `CgenNode', and class names are placed
@@ -55,6 +64,7 @@ private:
    List<CgenNode> *children;                  // Children of class
    Basicness basic_status;                    // `Basic' if class is basic
                                               // `NotBasic' otherwise
+   int class_tag;
 
 public:
    CgenNode(Class_ c,
@@ -66,6 +76,17 @@ public:
    void set_parentnd(CgenNodeP p);
    CgenNodeP get_parentnd() { return parentnd; }
    int basic() { return (basic_status == Basic); }
+
+   int get_class_tag() { return class_tag; }
+   void set_class_tag(int _class_tag) { class_tag = _class_tag; }
+   int get_size();
+
+   void code_prototype(ostream& str);
+   void code_nameTab(ostream& str);
+   void code_objTab(ostream& str);
+   void code_dispatch_table(ostream& str);
+   void code_init(ostream& str);
+   void code_methods(ostream& str);
 };
 
 class BoolConst 
