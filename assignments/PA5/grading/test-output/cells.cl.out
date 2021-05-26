@@ -1,0 +1,24 @@
+SPIM Version 6.5 of January 4, 2003
+Copyright 1990-2003 by James R. Larus (larus@cs.wisc.edu).
+All Rights Reserved.
+See the file README for a full copyright notice.
+Loaded: ../lib/trap.handler
+The following symbols are undefined:
+CellularAutomaton.print
+CellularAutomaton_init
+CellularAutomaton.cell_right_neighbor
+Main.main
+Bool_init
+CellularAutomaton.init
+CellularAutomaton.cell
+CellularAutomaton.cell_left_neighbor
+IO_init
+Int_init
+String_init
+Object_init
+CellularAutomaton.evolve
+CellularAutomaton.cell_at_next_evolution
+CellularAutomaton.num_cells
+Main_init
+Instruction references undefined symbol at 0x004000a4
+[0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object

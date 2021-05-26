@@ -14,3 +14,7 @@ class Foo {
   	  baz + 2
 	  };
 };
+
+class Bar inherits Foo {
+  z: Int;
+};

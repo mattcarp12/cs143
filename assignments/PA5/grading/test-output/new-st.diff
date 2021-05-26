@@ -1,0 +1,23 @@
+5,10c5,19
+< Loaded: /usr/class/cs143/cool/lib/trap.handler
+< x is 1
+< x is 4
+< x is 1
+< x is 4
+< COOL program successfully executed
+---
+> Loaded: ../lib/trap.handler
+> The following symbols are undefined:
+> A_init
+> Main.main
+> Bool_init
+> A.printX
+> IO_init
+> Int_init
+> A.bump
+> String_init
+> Object_init
+> A.new_st
+> Main_init
+> Instruction references undefined symbol at 0x004000a4
+> [0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object

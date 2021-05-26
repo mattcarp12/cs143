@@ -82,10 +82,12 @@ public:
    int get_size();
 
    void code_prototype(ostream& str);
+   void code_attrs(ostream& str);
    void code_nameTab(ostream& str);
    void code_objTab(ostream& str);
    void code_dispatch_table(ostream& str);
-   void code_init(ostream& str);
+  void code_method_labels(ostream& str);
+  void code_init(ostream& str);
    void code_methods(ostream& str);
 };
 

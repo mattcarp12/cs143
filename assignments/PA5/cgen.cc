@@ -912,10 +912,7 @@ void CgenClassTable::code()
 
   //                 Add your code to emit
 
-  //                   - prototype objects
-  if (cgen_debug)
-    cout << "coding prototype objects" << endl;
-  code_class_prototypes();
+
 
   //                   - class_nameTab
   if (cgen_debug)
@@ -933,6 +930,10 @@ void CgenClassTable::code()
   code_dispatch_tables();
   
   //
+  //                   - prototype objects
+  if (cgen_debug)
+    cout << "coding prototype objects" << endl;
+  code_class_prototypes();
 
   if (cgen_debug)
     cout << "coding global text" << endl;
@@ -982,22 +983,48 @@ void CgenNode::code_prototype(ostream& str) {
   str << WORD << get_size() << endl;
   str << WORD << name << "_dispatch_table" << endl;
 
-  // Handle Basic Classes separately
+  code_attrs(str);
   
-
-  // code attributes for class
-  for ( int i = features->first(); features->more(i); i = features->next(i)) {
-    Feature f = features->nth(i);
-    if (f->is_attr()) {
-      str << WORD << 0 << endl;
-    }
-
-  }
-
   List<CgenNode> *l = get_children();
   for (; l != NULL; l = l->tl())
     l->hd()->code_prototype(str);
-  
+}
+
+
+
+void CgenNode::code_attrs(ostream& str) {
+  if (name == Object)
+    return;
+  get_parentnd()->code_attrs(str);
+
+  if (basic()) {
+    if (name == Str) {
+      for (int i = stringtable.first(); stringtable.more(i); i = stringtable.next(i)) {
+	Symbol s = stringtable.lookup(i);
+	if (s->equal_string("", 0)){
+	  str << WORD << STRCONST_PREFIX << i << endl;
+	  break;
+	}
+      }      
+    }
+    else if (name == Int) {
+      for (int i = inttable.first(); inttable.more(i); i = inttable.next(i)) {
+	Symbol s = inttable.lookup(i);
+	if (s->equal_string("0", 1)) {
+	  str << WORD << INTCONST_PREFIX << i << endl;
+	}
+      }
+    }
+  } else {
+  // code attributes for class
+    for ( int i = features->first(); features->more(i); i = features->next(i)) {
+      Feature f = features->nth(i);
+      f->dump(cout, 0);
+      if (f->is_attr()) {
+	str << WORD << 0 << endl;
+      }
+    }
+  }
 }
 
 void CgenNode::code_nameTab(ostream& str) {
@@ -1031,16 +1058,24 @@ void CgenNode::code_objTab(ostream& str)
 void CgenNode::code_dispatch_table(ostream& str)
 {
   str << name << "_dispatch_table:" << endl;
+  code_method_labels(str);
+
+  List<CgenNode> *l = get_children();
+  for (; l != NULL; l = l->tl())
+    l->hd()->code_dispatch_table(str);
+}
+
+void CgenNode::code_method_labels(ostream& str) {
+  if (name != Object) {
+    get_parentnd()->code_method_labels(str);
+  }
+  
   for (int i = features->first(); features->more(i); i = features->next(i)) {
     Feature f = features->nth(i);
     if (f->is_method()) {
       str << WORD << name << "." << f->get_name() << endl;
     }
   }
-
-  List<CgenNode> *l = get_children();
-  for (; l != NULL; l = l->tl())
-    l->hd()->code_dispatch_table(str);
 }
 
 void CgenNode::code_init(ostream& str)
