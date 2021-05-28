@@ -1019,7 +1019,6 @@ void CgenNode::code_attrs(ostream& str) {
   // code attributes for class
     for ( int i = features->first(); features->more(i); i = features->next(i)) {
       Feature f = features->nth(i);
-      f->dump(cout, 0);
       if (f->is_attr()) {
 	str << WORD << 0 << endl;
       }
@@ -1080,12 +1079,32 @@ void CgenNode::code_method_labels(ostream& str) {
 
 void CgenNode::code_init(ostream& str)
 {
+  str << name << "_init:" << endl;
+  str << "# this is where class init method goes" << endl;
 
+  List<CgenNode> *l = get_children();
+  for (; l != NULL; l = l->tl())
+    l->hd()->code_init(str);
 }
 
 void CgenNode::code_methods(ostream& str)
 {
+  if (!basic()) {
 
+    cout << "Coding methods for class " << name << endl;
+
+    for (int i = features->first(); features->more(i); i = features->next(i)) {
+      Feature f = features->nth(i);
+      if (f->is_method()) {
+	str << name << "." << f->get_name() << ":" << endl; // Method label
+	f->expr->code();
+      }
+    }
+  }
+
+  List<CgenNode> *l = get_children();
+  for (; l != NULL; l = l->tl())
+    l->hd()->code_methods(str);
 }
 
 int CgenNode::get_size() 
