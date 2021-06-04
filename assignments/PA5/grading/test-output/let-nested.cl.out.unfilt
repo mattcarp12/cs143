@@ -4,14 +4,8 @@ All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: ../lib/trap.handler
 The following symbols are undefined:
-Main.print
-Main.main
-Bool_init
-IO_init
-Int_init
-String_init
-Object_init
-Main_init
+SELF_TYPE.out_int
+SELF_TYPE.out_string
 
-Instruction references undefined symbol at 0x004000a4
-[0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+Instruction references undefined symbol at 0x00401314
+[0x00401314]	0x0c000000  jal 0x00000000 [SELF_TYPE.out_int]; 340: jal SELF_TYPE.out_int

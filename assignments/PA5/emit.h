@@ -64,7 +64,7 @@
 //
 // register names
 //
-#define ZERO "$zero"		// Zero register 
+#define ZERO "$zero"	// Zero register 
 #define ACC  "$a0"		// Accumulator 
 #define A1   "$a1"		// For arguments to prim funcs 
 #define SELF "$s0"		// Ptr to self (callee saves) 
@@ -104,5 +104,8 @@
 #define BLEQ     "\tble\t"
 #define BLT      "\tblt\t"
 #define BGT      "\tbgt\t"
+#define SLT      "\tslt\t"
+#define SLE      "\tsle\t"
+#define SEQ      "\tseq\t"
 
 

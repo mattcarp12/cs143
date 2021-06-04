@@ -1,4 +1,4 @@
-5,10c5,19
+5,10c5,9
 < Loaded: /usr/class/cs143/cool/lib/trap.handler
 < base
 < base
@@ -8,16 +8,6 @@
 ---
 > Loaded: ../lib/trap.handler
 > The following symbols are undefined:
-> Derived_init
-> Base_init
-> Main.main
-> Base.identify
-> Bool_init
-> Derived.identify
-> IO_init
-> Int_init
-> String_init
-> Object_init
-> Main_init
-> Instruction references undefined symbol at 0x004000a4
-> [0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+> SELF_TYPE.out_string
+> Instruction references undefined symbol at 0x0040131c
+> [0x0040131c]	0x0c000000  jal 0x00000000 [SELF_TYPE.out_string]; 407: jal SELF_TYPE.out_string

@@ -29,7 +29,7 @@ _MemMgr_TEST:
 str_const16:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const1
 	.byte	0	
 	.align	2
@@ -37,7 +37,7 @@ str_const16:
 str_const15:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const3
 	.ascii	"Main"
 	.byte	0	
@@ -46,7 +46,7 @@ str_const15:
 str_const14:
 	.word	4
 	.word	9
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const4
 	.ascii	"CellularAutomaton"
 	.byte	0	
@@ -55,7 +55,7 @@ str_const14:
 str_const13:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const5
 	.ascii	"String"
 	.byte	0	
@@ -64,7 +64,7 @@ str_const13:
 str_const12:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const3
 	.ascii	"Bool"
 	.byte	0	
@@ -73,7 +73,7 @@ str_const12:
 str_const11:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const6
 	.ascii	"Int"
 	.byte	0	
@@ -82,7 +82,7 @@ str_const11:
 str_const10:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const7
 	.ascii	"IO"
 	.byte	0	
@@ -91,7 +91,7 @@ str_const10:
 str_const9:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const5
 	.ascii	"Object"
 	.byte	0	
@@ -100,7 +100,7 @@ str_const9:
 str_const8:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const8
 	.ascii	"_prim_slot"
 	.byte	0	
@@ -109,7 +109,7 @@ str_const8:
 str_const7:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const9
 	.ascii	"SELF_TYPE"
 	.byte	0	
@@ -118,7 +118,7 @@ str_const7:
 str_const6:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const9
 	.ascii	"_no_class"
 	.byte	0	
@@ -127,7 +127,7 @@ str_const6:
 str_const5:
 	.word	4
 	.word	8
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const10
 	.ascii	"<basic class>"
 	.byte	0	
@@ -136,7 +136,7 @@ str_const5:
 str_const4:
 	.word	4
 	.word	9
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const11
 	.ascii	"         X         "
 	.byte	0	
@@ -145,7 +145,7 @@ str_const4:
 str_const3:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const0
 	.ascii	"."
 	.byte	0	
@@ -154,7 +154,7 @@ str_const3:
 str_const2:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const0
 	.ascii	"X"
 	.byte	0	
@@ -163,7 +163,7 @@ str_const2:
 str_const1:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const0
 	.ascii	"\n"
 	.byte	0	
@@ -172,7 +172,7 @@ str_const1:
 str_const0:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const8
 	.ascii	"./cells.cl"
 	.byte	0	
@@ -181,127 +181,86 @@ str_const0:
 int_const11:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	19
 	.word	-1
 int_const10:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	13
 	.word	-1
 int_const9:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	9
 	.word	-1
 int_const8:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	10
 	.word	-1
 int_const7:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	2
 	.word	-1
 int_const6:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	3
 	.word	-1
 int_const5:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	6
 	.word	-1
 int_const4:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	17
 	.word	-1
 int_const3:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	4
 	.word	-1
 int_const2:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	20
 	.word	-1
 int_const1:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	0
 	.word	-1
 int_const0:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	1
 	.word	-1
 bool_const0:
 	.word	3
 	.word	4
-	.word	Bool_dispatch_table
+	.word	Bool_dispTab
 	.word	0
 	.word	-1
 bool_const1:
 	.word	3
 	.word	4
-	.word	Bool_dispatch_table
+	.word	Bool_dispTab
 	.word	1
-	.word	-1
-Object_protObj:
-	.word	0
-	.word	3
-	.word	Object_dispatch_table
-	.word	-1
-IO_protObj:
-	.word	1
-	.word	3
-	.word	IO_dispatch_table
-	.word	-1
-CellularAutomaton_protObj:
-	.word	2
-	.word	4
-	.word	CellularAutomaton_dispatch_table
-	.word	0
-	.word	-1
-Int_protObj:
-	.word	3
-	.word	4
-	.word	Int_dispatch_table
-	.word	0
-	.word	-1
-Bool_protObj:
-	.word	4
-	.word	4
-	.word	Bool_dispatch_table
-	.word	0
-	.word	-1
-String_protObj:
-	.word	5
-	.word	5
-	.word	String_dispatch_table
-	.word	0
-	.word	0
-	.word	-1
-Main_protObj:
-	.word	6
-	.word	4
-	.word	Main_dispatch_table
-	.word	0
 class_nameTab:
 	.word	str_const9
 	.word	str_const10
@@ -325,16 +284,26 @@ class_objTab:
 	.word	String_init
 	.word	Main_protObj
 	.word	Main_init
-Object_dispatch_table:
+Object_dispTab:
 	.word	Object.abort
 	.word	Object.type_name
 	.word	Object.copy
-IO_dispatch_table:
+IO_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
 	.word	IO.out_string
 	.word	IO.out_int
 	.word	IO.in_string
 	.word	IO.in_int
-CellularAutomaton_dispatch_table:
+CellularAutomaton_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
+	.word	IO.out_string
+	.word	IO.out_int
+	.word	IO.in_string
+	.word	IO.in_int
 	.word	CellularAutomaton.init
 	.word	CellularAutomaton.print
 	.word	CellularAutomaton.num_cells
@@ -343,14 +312,65 @@ CellularAutomaton_dispatch_table:
 	.word	CellularAutomaton.cell_right_neighbor
 	.word	CellularAutomaton.cell_at_next_evolution
 	.word	CellularAutomaton.evolve
-Int_dispatch_table:
-Bool_dispatch_table:
-String_dispatch_table:
+Int_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
+Bool_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
+String_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
 	.word	String.length
 	.word	String.concat
 	.word	String.substr
-Main_dispatch_table:
+Main_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
 	.word	Main.main
+	.word	-1
+Object_protObj:
+	.word	0
+	.word	3
+	.word	Object_dispTab
+	.word	-1
+IO_protObj:
+	.word	1
+	.word	3
+	.word	IO_dispTab
+	.word	-1
+CellularAutomaton_protObj:
+	.word	2
+	.word	4
+	.word	CellularAutomaton_dispTab
+	.word	0
+	.word	-1
+Int_protObj:
+	.word	3
+	.word	4
+	.word	Int_dispTab
+	.word	int_const1
+	.word	-1
+Bool_protObj:
+	.word	4
+	.word	4
+	.word	Bool_dispTab
+	.word	-1
+String_protObj:
+	.word	5
+	.word	5
+	.word	String_dispTab
+	.word	str_const16
+	.word	-1
+Main_protObj:
+	.word	6
+	.word	4
+	.word	Main_dispTab
+	.word	0
 	.globl	heap_start
 heap_start:
 	.word	0
@@ -360,5 +380,307 @@ heap_start:
 	.globl	String_init
 	.globl	Bool_init
 	.globl	Main.main
+Object_init:
+# this is where class init method goes
+IO_init:
+# this is where class init method goes
+CellularAutomaton_init:
+# this is where class init method goes
+Int_init:
+# this is where class init method goes
+Bool_init:
+# this is where class init method goes
+String_init:
+# this is where class init method goes
+Main_init:
+# this is where class init method goes
+CellularAutomaton.init:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	lw	$ra 4($sp)
+	addiu	$sp $sp 8
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.print:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const1
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal String.concat
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_string
+	lw	$ra 4($sp)
+	addiu	$sp $sp 4
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.num_cells:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	jal String.length
+	lw	$ra 4($sp)
+	addiu	$sp $sp 4
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.cell:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const0
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal String.substr
+	lw	$ra 4($sp)
+	addiu	$sp $sp 8
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.cell_left_neighbor:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const1
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	addiu	$sp $sp 4
+	la	$a0 bool_const1
+	beq	$t1 $t2 label0
+	la	$a0 bool_const0
+label0:
+	la	$t1 bool_const1
+	beq	$a0 $t1 label1
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const0
+	jal	Object.copy
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	sub	$t1 $t1 $t2
+	sw	$t1 12($a0)
+	addiu	$sp $sp 4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell
+label1:
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.num_cells
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const0
+	jal	Object.copy
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	sub	$t1 $t1 $t2
+	sw	$t1 12($a0)
+	addiu	$sp $sp 4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell
+	lw	$ra 4($sp)
+	addiu	$sp $sp 8
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.cell_right_neighbor:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.num_cells
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const0
+	jal	Object.copy
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	sub	$t1 $t1 $t2
+	sw	$t1 12($a0)
+	addiu	$sp $sp 4
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	addiu	$sp $sp 4
+	la	$a0 bool_const1
+	beq	$t1 $t2 label2
+	la	$a0 bool_const0
+label2:
+	la	$t1 bool_const1
+	beq	$a0 $t1 label3
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const0
+	jal	Object.copy
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	add	$t1 $t1 $t2
+	sw	$t1 12($a0)
+	addiu	$sp $sp 4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell
+label3:
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const1
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell
+	lw	$ra 4($sp)
+	addiu	$sp $sp 8
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.cell_at_next_evolution:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const2
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	addiu	$sp $sp 4
+	la	$a0 bool_const1
+	beq	$t1 $t2 label4
+	la	$a0 bool_const0
+label4:
+	la	$t1 bool_const1
+	beq	$a0 $t1 label5
+	la	$a0 int_const1
+label5:
+	la	$a0 int_const0
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell_left_neighbor
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const2
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	addiu	$sp $sp 4
+	la	$a0 bool_const1
+	beq	$t1 $t2 label6
+	la	$a0 bool_const0
+label6:
+	la	$t1 bool_const1
+	beq	$a0 $t1 label7
+	la	$a0 int_const1
+label7:
+	la	$a0 int_const0
+	jal	Object.copy
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	add	$t1 $t1 $t2
+	sw	$t1 12($a0)
+	addiu	$sp $sp 4
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.cell_right_neighbor
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const2
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	addiu	$sp $sp 4
+	la	$a0 bool_const1
+	beq	$t1 $t2 label8
+	la	$a0 bool_const0
+label8:
+	la	$t1 bool_const1
+	beq	$a0 $t1 label9
+	la	$a0 int_const1
+label9:
+	la	$a0 int_const0
+	jal	Object.copy
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	add	$t1 $t1 $t2
+	sw	$t1 12($a0)
+	addiu	$sp $sp 4
+	lw	$a0 12($a0)
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 int_const0
+	lw	$t1 12($a0)
+	lw	$t2 16($sp)
+	addiu	$sp $sp 4
+	la	$a0 bool_const1
+	beq	$t1 $t2 label10
+	la	$a0 bool_const0
+label10:
+	la	$t1 bool_const1
+	beq	$a0 $t1 label11
+	la	$a0 str_const3
+label11:
+	la	$a0 str_const2
+	lw	$ra 4($sp)
+	addiu	$sp $sp 8
+	lw	$fp 0($sp)
+	jalr		$ra
+CellularAutomaton.evolve:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	lw	$ra 4($sp)
+	addiu	$sp $sp 4
+	lw	$fp 0($sp)
+	jalr		$ra
+Main.main:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	jal CellularAutomaton.print
+	lw	$ra 4($sp)
+	addiu	$sp $sp 4
+	lw	$fp 0($sp)
+	jalr		$ra
 
 # end of generated code

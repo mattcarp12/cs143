@@ -1,4 +1,4 @@
-5,12c5,20
+5,12c5,14
 < Loaded: /usr/class/cs143/cool/lib/trap.handler
 < old: 0.  new: 1
 < old: 1.  new: 2
@@ -10,17 +10,11 @@
 ---
 > Loaded: ../lib/trap.handler
 > The following symbols are undefined:
-> Derived_init
-> Base_init
-> Base.report
-> Main.main
-> Bool_init
-> Base.duplicate
-> IO_init
-> Int_init
-> String_init
-> Object_init
-> Derived.report
-> Main_init
-> Instruction references undefined symbol at 0x004000a4
-> [0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+> SELF_TYPE_init
+> Derived.duplicate
+> SELF_TYPE.report
+> SELF_TYPE.out_int
+> SELF_TYPE.out_string
+> SELF_TYPE_protObj
+> Instruction references undefined symbol at 0x0040135c
+> [0x0040135c]	0x0c000000  jal 0x00000000 [SELF_TYPE.out_int]; 446: jal SELF_TYPE.out_int

@@ -4,16 +4,7 @@ All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: ../lib/trap.handler
 The following symbols are undefined:
-A_init
-Main.main
-Bool_init
-A.printX
-IO_init
-Int_init
-A.bump
-String_init
-Object_init
-A.new_st
-Main_init
-Instruction references undefined symbol at 0x004000a4
-[0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+SELF_TYPE_init
+SELF_TYPE_protObj
+Can't expand data segment by 65536 bytes to 1114112 bytes
+Use -ldata # with # > 1114112

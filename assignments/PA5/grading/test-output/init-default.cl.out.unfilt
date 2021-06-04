@@ -4,15 +4,11 @@ All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: ../lib/trap.handler
 The following symbols are undefined:
-A_init
-Main.main
-Bool_init
-A.print_attr
-IO_init
-Int_init
-String_init
-Object_init
-Main_init
+SELF_TYPE.out_int
+SELF_TYPE.out_string
 
-Instruction references undefined symbol at 0x004000a4
-[0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+Increasing heap...
+Increasing heap...
+Exception occurred at PC=0x0040134c
+  Bad address in data/stack read: 0x80000000
+  Exception 7  [Bad address in data/stack read]  Execution aborted

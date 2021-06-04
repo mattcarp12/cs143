@@ -4,17 +4,18 @@
  *)
 
 class Main {
-  main():Int { 0 };
+  x : Int <- 1000;
+  main():Int { 
+
+    3+3
+    
+  };
 };
+
+
 
 class Foo {
-  x: Int;
-  y: String;
-  bar(baz : Int): Int {
-  	  baz + 2
-	  };
-};
-
-class Bar inherits Foo {
-  z: Int;
+  foo(x: Int, y: Int): Int {
+    x + y
+  };
 };

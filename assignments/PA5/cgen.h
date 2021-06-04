@@ -4,7 +4,11 @@
 #include "cool-tree.h"
 #include "symtab.h"
 
-enum Basicness     {Basic, NotBasic};
+enum Basicness
+{
+   Basic,
+   NotBasic
+};
 #define TRUE 1
 #define FALSE 0
 
@@ -14,17 +18,17 @@ typedef CgenClassTable *CgenClassTableP;
 class CgenNode;
 typedef CgenNode *CgenNodeP;
 
-class CgenClassTable : public SymbolTable<Symbol,CgenNode> {
+class CgenClassTable : public SymbolTable<Symbol, CgenNode>
+{
 private:
    List<CgenNode> *nds;
-   ostream& str;
+   ostream &str;
    int stringclasstag;
    int intclasstag;
    int boolclasstag;
 
-
-// The following methods emit code for
-// constants and global declarations.
+   // The following methods emit code for
+   // constants and global declarations.
 
    void code_global_data();
    void code_global_text();
@@ -32,38 +36,40 @@ private:
    void code_select_gc();
    void code_constants();
 
-// The following methods are Matt's fancy methods
+   // The following methods are Matt's fancy methods
 
-   void code_class_prototypes();                // Emit code for object prototypes
-   void code_class_nameTab();                   // Emit code for class_nameTab
+   void code_class_prototypes(); // Emit code for object prototypes
+   void code_class_nameTab();    // Emit code for class_nameTab
    void code_class_objTab();
-   void code_dispatch_tables();                 // Emit code for dispatch tables
-   void code_class_initializers();              // Emit code for class initilization methods
-   void code_class_methods();                   // Emit code for class methods
+   void code_dispatch_tables();    // Emit code for dispatch tables
+   void code_class_initializers(); // Emit code for class initilization methods
+   void code_class_methods();      // Emit code for class methods
 
-// The following creates an inheritance graph from
-// a list of classes.  The graph is implemented as
-// a tree of `CgenNode', and class names are placed
-// in the base class symbol table.
+   // The following creates an inheritance graph from
+   // a list of classes.  The graph is implemented as
+   // a tree of `CgenNode', and class names are placed
+   // in the base class symbol table.
 
    void install_basic_classes();
    void install_class(CgenNodeP nd);
    void install_classes(Classes cs);
    void build_inheritance_tree();
    void set_relations(CgenNodeP nd);
+
 public:
-   CgenClassTable(Classes, ostream& str);
+   CgenClassTable(Classes, ostream &str);
    void code();
    CgenNodeP root();
 };
 
-
-class CgenNode : public class__class {
-private: 
-   CgenNodeP parentnd;                        // Parent of class
-   List<CgenNode> *children;                  // Children of class
-   Basicness basic_status;                    // `Basic' if class is basic
-                                              // `NotBasic' otherwise
+class CgenNode : public class__class
+{
+private:
+   CgenNodeP parentnd;       // Parent of class
+   List<CgenNode> *children; // Children of class
+   Basicness basic_status;   // `Basic' if class is basic
+                             // `NotBasic' otherwise
+   static int class_tag_counter;
    int class_tag;
 
 public:
@@ -76,28 +82,29 @@ public:
    void set_parentnd(CgenNodeP p);
    CgenNodeP get_parentnd() { return parentnd; }
    int basic() { return (basic_status == Basic); }
-
+   void set_class_tag() {class_tag = class_tag_counter++;}
    int get_class_tag() { return class_tag; }
-   void set_class_tag(int _class_tag) { class_tag = _class_tag; }
    int get_size();
+   void get_dispTab(std::vector<std::pair<Symbol, Symbol>> *dispTab);
 
-   void code_prototype(ostream& str);
-   void code_attrs(ostream& str);
-   void code_nameTab(ostream& str);
-   void code_objTab(ostream& str);
-   void code_dispatch_table(ostream& str);
-  void code_method_labels(ostream& str);
-  void code_init(ostream& str);
-   void code_methods(ostream& str);
+   void code_prototype(ostream &str);
+   void code_attrs(ostream &str);
+   void code_nameTab(ostream &str);
+   void code_objTab(ostream &str);
+   void code_dispatch_table(ostream &str);
+   void code_init(ostream &str);
+   void code_methods(ostream &str);
 };
 
-class BoolConst 
+int CgenNode::class_tag_counter = 0;
+
+class BoolConst
 {
- private: 
-  int val;
- public:
-  BoolConst(int);
-  void code_def(ostream&, int boolclasstag);
-  void code_ref(ostream&) const;
-};
+private:
+   int val;
 
+public:
+   BoolConst(int);
+   void code_def(ostream &, int boolclasstag);
+   void code_ref(ostream &) const;
+};

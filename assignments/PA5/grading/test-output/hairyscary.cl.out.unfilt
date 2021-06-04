@@ -4,20 +4,11 @@ All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: ../lib/trap.handler
 The following symbols are undefined:
-Foo.doh
-Bazz_init
-Foo_init
-Main.main
-Bool_init
-Bazz.doh
-IO_init
-Int_init
-String_init
-Object_init
-Bar_init
-Bazz.printh
-Main_init
-Razz_init
+Bar.doh
+SELF_TYPE.doh
+SELF_TYPE.printh
+Razz.doh
+SELF_TYPE.out_int
 
-Instruction references undefined symbol at 0x004000a4
-[0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+Instruction references undefined symbol at 0x00401308
+[0x00401308]	0x0c000000  jal 0x00000000 [SELF_TYPE.printh]; 454: jal SELF_TYPE.printh

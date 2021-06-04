@@ -29,7 +29,7 @@ _MemMgr_TEST:
 str_const15:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const0
 	.byte	0	
 	.align	2
@@ -37,7 +37,7 @@ str_const15:
 str_const14:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const1
 	.ascii	"Main"
 	.byte	0	
@@ -46,7 +46,7 @@ str_const14:
 str_const13:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const2
 	.ascii	"String"
 	.byte	0	
@@ -55,7 +55,7 @@ str_const13:
 str_const12:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const1
 	.ascii	"Bool"
 	.byte	0	
@@ -64,7 +64,7 @@ str_const12:
 str_const11:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const3
 	.ascii	"Int"
 	.byte	0	
@@ -73,7 +73,7 @@ str_const11:
 str_const10:
 	.word	4
 	.word	5
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const4
 	.ascii	"IO"
 	.byte	0	
@@ -82,7 +82,7 @@ str_const10:
 str_const9:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const2
 	.ascii	"Object"
 	.byte	0	
@@ -91,7 +91,7 @@ str_const9:
 str_const8:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const5
 	.ascii	"_prim_slot"
 	.byte	0	
@@ -100,7 +100,7 @@ str_const8:
 str_const7:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const6
 	.ascii	"SELF_TYPE"
 	.byte	0	
@@ -109,7 +109,7 @@ str_const7:
 str_const6:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const6
 	.ascii	"_no_class"
 	.byte	0	
@@ -118,7 +118,7 @@ str_const6:
 str_const5:
 	.word	4
 	.word	8
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const7
 	.ascii	"<basic class>"
 	.byte	0	
@@ -127,7 +127,7 @@ str_const5:
 str_const4:
 	.word	4
 	.word	7
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const8
 	.ascii	"not void"
 	.byte	0	
@@ -136,7 +136,7 @@ str_const4:
 str_const3:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const1
 	.ascii	"void"
 	.byte	0	
@@ -145,7 +145,7 @@ str_const3:
 str_const2:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const9
 	.ascii	"false"
 	.byte	0	
@@ -154,7 +154,7 @@ str_const2:
 str_const1:
 	.word	4
 	.word	6
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const1
 	.ascii	"true"
 	.byte	0	
@@ -163,7 +163,7 @@ str_const1:
 str_const0:
 	.word	4
 	.word	8
-	.word	String_dispatch_table
+	.word	String_dispTab
 	.word	int_const10
 	.ascii	"./basic-init.cl"
 	.byte	0	
@@ -172,118 +172,80 @@ str_const0:
 int_const10:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	15
 	.word	-1
 int_const9:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	5
 	.word	-1
 int_const8:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	8
 	.word	-1
 int_const7:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	13
 	.word	-1
 int_const6:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	9
 	.word	-1
 int_const5:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	10
 	.word	-1
 int_const4:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	2
 	.word	-1
 int_const3:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	3
 	.word	-1
 int_const2:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	6
 	.word	-1
 int_const1:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	4
 	.word	-1
 int_const0:
 	.word	2
 	.word	4
-	.word	Int_dispatch_table
+	.word	Int_dispTab
 	.word	0
 	.word	-1
 bool_const0:
 	.word	3
 	.word	4
-	.word	Bool_dispatch_table
+	.word	Bool_dispTab
 	.word	0
 	.word	-1
 bool_const1:
 	.word	3
 	.word	4
-	.word	Bool_dispatch_table
+	.word	Bool_dispTab
 	.word	1
-	.word	-1
-Object_protObj:
-	.word	0
-	.word	3
-	.word	Object_dispatch_table
-	.word	-1
-IO_protObj:
-	.word	1
-	.word	3
-	.word	IO_dispatch_table
-	.word	-1
-Main_protObj:
-	.word	2
-	.word	7
-	.word	Main_dispatch_table
-	.word	0
-	.word	0
-	.word	0
-	.word	0
-	.word	-1
-Int_protObj:
-	.word	3
-	.word	4
-	.word	Int_dispatch_table
-	.word	0
-	.word	-1
-Bool_protObj:
-	.word	4
-	.word	4
-	.word	Bool_dispatch_table
-	.word	0
-	.word	-1
-String_protObj:
-	.word	5
-	.word	5
-	.word	String_dispatch_table
-	.word	0
-	.word	0
 class_nameTab:
 	.word	str_const9
 	.word	str_const10
@@ -304,23 +266,78 @@ class_objTab:
 	.word	Bool_init
 	.word	String_protObj
 	.word	String_init
-Object_dispatch_table:
+Object_dispTab:
 	.word	Object.abort
 	.word	Object.type_name
 	.word	Object.copy
-IO_dispatch_table:
+IO_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
 	.word	IO.out_string
 	.word	IO.out_int
 	.word	IO.in_string
 	.word	IO.in_int
-Main_dispatch_table:
+Main_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
+	.word	IO.out_string
+	.word	IO.out_int
+	.word	IO.in_string
+	.word	IO.in_int
 	.word	Main.main
-Int_dispatch_table:
-Bool_dispatch_table:
-String_dispatch_table:
+Int_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
+Bool_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
+String_dispTab:
+	.word	Object.abort
+	.word	Object.type_name
+	.word	Object.copy
 	.word	String.length
 	.word	String.concat
 	.word	String.substr
+	.word	-1
+Object_protObj:
+	.word	0
+	.word	3
+	.word	Object_dispTab
+	.word	-1
+IO_protObj:
+	.word	1
+	.word	3
+	.word	IO_dispTab
+	.word	-1
+Main_protObj:
+	.word	2
+	.word	7
+	.word	Main_dispTab
+	.word	0
+	.word	0
+	.word	0
+	.word	0
+	.word	-1
+Int_protObj:
+	.word	3
+	.word	4
+	.word	Int_dispTab
+	.word	int_const0
+	.word	-1
+Bool_protObj:
+	.word	4
+	.word	4
+	.word	Bool_dispTab
+	.word	-1
+String_protObj:
+	.word	5
+	.word	5
+	.word	String_dispTab
+	.word	str_const15
 	.globl	heap_start
 heap_start:
 	.word	0
@@ -330,5 +347,65 @@ heap_start:
 	.globl	String_init
 	.globl	Bool_init
 	.globl	Main.main
+Object_init:
+# this is where class init method goes
+IO_init:
+# this is where class init method goes
+Main_init:
+# this is where class init method goes
+Int_init:
+# this is where class init method goes
+Bool_init:
+# this is where class init method goes
+String_init:
+# this is where class init method goes
+Main.main:
+	move	$fp $sp
+	sw	$ra 0($sp)
+	addiu	$sp $sp -4
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_int
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_string
+	la	$t1 bool_const1
+	beq	$a0 $t1 label0
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const2
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_string
+label0:
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const1
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_string
+	la	$t1 bool_const1
+	beq	$a0 $t1 label1
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const4
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_string
+label1:
+	sw	$fp 0($sp)
+	addiu	$sp $sp -4
+	la	$a0 str_const3
+	sw	$a0 0($sp)
+	addiu	$sp $sp -4
+	jal SELF_TYPE.out_string
+	lw	$ra 4($sp)
+	addiu	$sp $sp 4
+	lw	$fp 0($sp)
+	jalr		$ra
 
 # end of generated code

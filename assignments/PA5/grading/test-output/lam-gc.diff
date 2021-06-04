@@ -1,4 +1,4 @@
-5,534c5,85
+5,534c5,17
 < Loaded: /usr/class/cs143/cool/lib/trap.handler
 < \x.x
 < \x.\y.x
@@ -532,82 +532,14 @@
 ---
 > Loaded: ../lib/trap.handler
 > The following symbols are undefined:
-> Variable.gen_code
-> Main.closure_class
-> VarListNE.tail
-> LambdaList_init
-> Lambda.apply
-> LambdaListNE.init
-> Variable.print_self
-> Term.app
-> Lambda.init
-> VarListNE.head
-> App.substitute
-> VarList.isNil
-> VarList.add
-> LambdaListRef.removeHead
-> Main.gen_code
-> Main.main
-> LambdaListRef_init
-> Expr.print_self
-> VarListNE_init
-> Bool_init
-> Variable_init
-> Variable.beta
-> LambdaList.headC
-> LambdaList.headE
-> LambdaList.headN
-> App.gen_code
-> Term.var
-> Variable.substitute
-> LambdaListNE.headC
-> LambdaListNE.headE
-> LambdaListNE.headN
-> VarList.print
-> Main.beta_reduce
-> Lambda.print_self
-> LambdaListNE.tail
-> IO_init
-> App_init
-> App.beta
-> Int_init
-> String_init
-> LambdaList.isNil
-> VarListNE.init
-> Object_init
-> Expr.substitute
-> VarList.tail
-> Variable.init
-> Term.lam
-> VarListNE.isNil
-> LambdaListNE.isNil
-> Lambda.gen_closure_code
-> Lambda.gen_code
-> Expr.gen_code
-> LambdaListRef.reset
-> LambdaList.tail
-> LambdaListRef.headC
-> LambdaListRef.headE
-> LambdaListRef.headN
-> Term_init
-> Expr_init
-> Expr.beta
-> Main.eval_class
-> App.init
-> Lambda.substitute
-> LambdaListNE_init
-> Main_init
-> VarList.head
-> LambdaList.add
-> VarListNE.print
-> Lambda_init
-> Lambda.beta
-> App.print_self
-> VarList_init
-> Term.i
-> Term.k
-> Term.s
-> LambdaListRef.add
-> LambdaListRef.isNil
-> Instruction references undefined symbol at 0x004000a4
-> [0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+> SELF_TYPE.abort
+> SELF_TYPE.gen_code
+> SELF_TYPE.app
+> SELF_TYPE.beta_reduce
+> SELF_TYPE.i
+> SELF_TYPE.k
+> SELF_TYPE.s
+> SELF_TYPE.out_int
+> SELF_TYPE.out_string
+> Instruction references undefined symbol at 0x00401ebc
+> [0x00401ebc]	0x0c000000  jal 0x00000000 [SELF_TYPE.i]    ; 2024: jal SELF_TYPE.i

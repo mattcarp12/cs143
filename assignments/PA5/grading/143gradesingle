@@ -69,7 +69,7 @@ $assigndir=$ARGV[1];
 # Path variables
 
 # base class directory
-$CLASS_DIR="../../../";
+#$CLASS_DIR="/usr/class/cs143";
 
 # directory containing cases file, test files, and solution output files
 $TESTS_DIR=".";

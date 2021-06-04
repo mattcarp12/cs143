@@ -1,4 +1,4 @@
-5,9c5,16
+5,9c5,12
 < Loaded: /usr/class/cs143/cool/lib/trap.handler
 < 128
 < 729
@@ -7,13 +7,9 @@
 ---
 > Loaded: ../lib/trap.handler
 > The following symbols are undefined:
-> Main.main
-> Bool_init
-> IO_init
-> Int_init
-> String_init
-> Main.exp
-> Object_init
-> Main_init
-> Instruction references undefined symbol at 0x004000a4
-> [0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+> SELF_TYPE.exp
+> SELF_TYPE.out_int
+> SELF_TYPE.out_string
+> Exception occurred at PC=0x00401364
+>   Unaligned address in inst/data fetch: 0x0000000e
+>   Exception 4  [Unaligned address in inst/data fetch]  Execution aborted

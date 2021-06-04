@@ -4,21 +4,10 @@ All Rights Reserved.
 See the file README for a full copyright notice.
 Loaded: ../lib/trap.handler
 The following symbols are undefined:
-CellularAutomaton.print
-CellularAutomaton_init
-CellularAutomaton.cell_right_neighbor
-Main.main
-Bool_init
-CellularAutomaton.init
-CellularAutomaton.cell
-CellularAutomaton.cell_left_neighbor
-IO_init
-Int_init
-String_init
-Object_init
-CellularAutomaton.evolve
-CellularAutomaton.cell_at_next_evolution
-CellularAutomaton.num_cells
-Main_init
-Instruction references undefined symbol at 0x004000a4
-[0x004000a4]	0x0c000000  jal 0x00000000 [Main_init]      ; 429: jal	Main_init		# initialize the Main object
+SELF_TYPE.cell
+SELF_TYPE.cell_left_neighbor
+SELF_TYPE.num_cells
+SELF_TYPE.cell_right_neighbor
+SELF_TYPE.out_string
+Instruction references undefined symbol at 0x0040134c
+[0x0040134c]	0x0c000000  jal 0x00000000 [SELF_TYPE.out_string]; 419: jal SELF_TYPE.out_string
